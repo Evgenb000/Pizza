@@ -20,6 +20,7 @@ export const Logo: React.FC<Props> = ({
           "https://img.icons8.com/?size=100&id=SFcWbNyRIEu1&format=png&color=000000"
         }
         alt={"Logo"}
+        priority
         width={width}
         height={height}
       />

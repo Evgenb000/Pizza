@@ -2,8 +2,10 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { Container } from "./container";
 import { Logo } from "./logo";
-import { Phone, ShoppingCart, User, UserCheck } from "lucide-react";
+import { Phone, User, UserCheck } from "lucide-react";
 import Link from "next/link";
+import { Separator } from "../ui/separator";
+import { SheetSide } from "./sheet";
 
 interface Props {
   className?: string;
@@ -11,30 +13,47 @@ interface Props {
 
 export const Header: React.FC<Props> = ({ className }) => {
   const signIn = false;
-  const iconSize = 32;
+  const iconSize = 28;
 
   return (
-    <header className={cn("w-full p-3", className)}>
+    <header className={cn("w-full p-2", className)}>
       <Container className="flex justify-between items-center w-full">
-        <div className="flex items-center gap-8">
-          <Logo />
-          <div>
-            <h1 className="font-bold">Pizza</h1>
-            <h2>Couldn&apos;t be better</h2>
+        <Link href={"/"}>
+          <div className="flex items-center gap-8">
+            <Logo width={32} height={32} />
+            <div>
+              <h1 className="font-bold">Pizza</h1>
+              <h2>Couldn&apos;t be better</h2>
+            </div>
           </div>
-        </div>
-        <div className="flex gap-4">
+        </Link>
+        <div className="flex gap-2 items-center h-6">
           <Link href={"tel:+380000000000"}>
             <Phone size={iconSize} aria-label="Call us" />
           </Link>
+
+          <Separator orientation="vertical" />
+
           {signIn ? (
-            <UserCheck size={iconSize} aria-label="User logged in" />
+            <UserCheck
+              className="cursor-pointer"
+              size={iconSize}
+              aria-label="User logged in"
+            />
           ) : (
-            <User size={iconSize} aria-label="User not logged in" />
+            <User
+              className="cursor-pointer"
+              size={iconSize}
+              aria-label="User not logged in"
+            />
           )}
-          <ShoppingCart size={iconSize} aria-label="Shopping cart" />
+
+          <Separator orientation="vertical" />
+          <SheetSide iconSize={iconSize} />
         </div>
       </Container>
+
+      <Separator className="max-w-[1280px] w-full mx-auto my-1" />
     </header>
   );
 };
