@@ -14,7 +14,7 @@ export const Logo: React.FC<Props> = ({
   height = 48,
 }) => {
   return (
-    <div className={cn("", className)}>
+    <div className={cn("interactive", className)}>
       <Image
         src={
           "https://img.icons8.com/?size=100&id=SFcWbNyRIEu1&format=png&color=000000"

@@ -23,36 +23,39 @@ export const Header: React.FC<Props> = ({ className }) => {
             <Logo width={32} height={32} />
             <div>
               <h1 className="font-bold">Pizza</h1>
+
               <h2>Couldn&apos;t be better</h2>
             </div>
           </div>
         </Link>
         <div className="flex gap-2 items-center h-6">
           <Link href={"tel:+380000000000"}>
-            <Phone size={iconSize} aria-label="Call us" />
+            <Phone
+              className="interactive"
+              size={iconSize}
+              aria-label="Call us"
+            />
           </Link>
-
           <Separator orientation="vertical" />
 
           {signIn ? (
             <UserCheck
-              className="cursor-pointer"
+              className="interactive"
               size={iconSize}
               aria-label="User logged in"
             />
           ) : (
             <User
-              className="cursor-pointer"
+              className="interactive"
               size={iconSize}
               aria-label="User not logged in"
             />
           )}
-
+          
           <Separator orientation="vertical" />
           <SheetSide iconSize={iconSize} />
         </div>
       </Container>
-
       <Separator className="max-w-[1280px] w-full mx-auto my-1" />
     </header>
   );
