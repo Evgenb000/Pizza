@@ -1,11 +1,15 @@
-import { SideBar } from "@/components/shared/sideBar";
+import { Container } from "@/components/shared/container";
+import { Cards } from "@/components/shared/cards";
+import { Sidebar } from "@/components/shared/sidebar";
 
 export default function ProductPage() {
   return (
-    // <div className="flex gap-2 flex-col justify-center items-center content-center mt-4">
-    //   <h1>Product Page</h1>
-    //   <p>This is the product page.</p>
-    // </div>
-    <SideBar />
+    <Container>
+      <main className="flex">
+        <Sidebar />
+
+        <Cards />
+      </main>
+    </Container>
   );
 }
