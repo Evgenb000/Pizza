@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { useIsScrolled } from "@/hooks/use-scrollY";
 
 interface Props {
   className?: string;
@@ -34,19 +35,52 @@ const items = [
     url: "#",
   },
   {
-    title: "Settings",
+    title: "Search1",
+    url: "#",
+  },
+  {
+    title: "Search2",
+    url: "#",
+  },
+  {
+    title: "Search3",
+    url: "#",
+  },
+  {
+    title: "Search4",
+    url: "#",
+  },
+  {
+    title: "Search5",
+    url: "#",
+  },
+  {
+    title: "Search6",
+    url: "#",
+  },
+  {
+    title: "Search7",
+    url: "#",
+  },
+  {
+    title: "Search8",
+    url: "#",
+  },
+  {
+    title: "Search9",
     url: "#",
   },
 ];
 
 export const Cards: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
+  const isScrolled = useIsScrolled();
 
   return (
     <div
       className={cn(
-        isMobile ? "ml-10" : "ml-72",
-        "grid gap-4 grid-cols-3",
+        isMobile ? "ml-10" : isScrolled ? "ml-72" : "ml-72",
+        "grid gap-4 grid-cols-3 mt-20",
         className
       )}
     >
@@ -57,11 +91,14 @@ export const Cards: React.FC<Props> = ({ className }) => {
             <CardDescription>{item.url}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p>Card Content</p>
+            <p>
+              Card Content Lorem ipsum dolor sit, amet consectetur adipisicing
+              elit. Accusamus quia pariatur voluptas enim qui autem, assumenda
+              sapiente, harum quos beatae voluptate, aspernatur sequi natus sint
+              quod tenetur aut magnam nostrum.
+            </p>
           </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
+          <CardFooter></CardFooter>
         </Card>
       ))}
     </div>
