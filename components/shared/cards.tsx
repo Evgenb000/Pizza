@@ -80,7 +80,7 @@ export const Cards: React.FC<Props> = ({ className }) => {
     <div
       className={cn(
         isMobile ? "ml-10" : isScrolled ? "ml-72" : "ml-72",
-        "grid gap-4 grid-cols-3 mt-20",
+        "grid gap-4 grid-cols-3 mt-16",
         className
       )}
     >

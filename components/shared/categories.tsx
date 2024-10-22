@@ -3,6 +3,7 @@
 // import { useIsScrolled } from "@/hooks/use-scrollY";
 import { cn } from "@/lib/utils";
 import React from "react";
+import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 
 interface Props {
   className?: string;
@@ -23,19 +24,20 @@ export const Categories: React.FC<Props> = ({ className }) => {
   return (
     <div
       className={cn(
-        "flex rounded-xl shadow bg-gray-300 p-0.5 gap-1 fixed top-24 duration-300 transition-all translate-x-72",
+        "fixed top-24 transition-all translate-x-72 duration-300",
         // isScrolled ? "top-4" : "",
         className
       )}
     >
-      {items.map((item) => (
-        <div
-          key={item.title}
-          className="grid items-center justify-center w-40 h-12 rounded-xl bg-white"
-        >
-          {item.title}
-        </div>
-      ))}
+      <Tabs defaultValue={items[0].title} className="w-fit">
+        <TabsList>
+          {items.map((item) => (
+            <TabsTrigger key={item.title} value={item.title} className="">
+              {item.title}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
     </div>
   );
 };
