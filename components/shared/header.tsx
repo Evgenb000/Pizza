@@ -13,7 +13,7 @@ interface Props {
 
 export const Header: React.FC<Props> = ({ className }) => {
   const signIn = false;
-  const iconSize = 28;
+  const iconSize = 32;
 
   return (
     <header className={cn("w-full p-2", className)}>
@@ -51,7 +51,7 @@ export const Header: React.FC<Props> = ({ className }) => {
               aria-label="User not logged in"
             />
           )}
-          
+
           <Separator orientation="vertical" />
           <SheetSide iconSize={iconSize} />
         </div>

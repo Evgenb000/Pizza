@@ -13,7 +13,7 @@ export default function ProductPage() {
 
   return (
     <Container>
-      <main className="flex mt-4 gap-5">
+      <main className="flex mt-4 gap-5 scroll-smooth">
         <Categories className={cn(isScrolled ? "top-4" : "")} />
 
         <Sidebar className={cn(isScrolled ? "top-4" : "")} />

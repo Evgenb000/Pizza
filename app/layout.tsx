@@ -13,10 +13,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body>
         <Header />
-        {children}</body>
+        {children}
+      </body>
     </html>
   );
 }

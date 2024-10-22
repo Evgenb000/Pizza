@@ -85,7 +85,7 @@ export const Cards: React.FC<Props> = ({ className }) => {
       )}
     >
       {items.map((item) => (
-        <Card key={item.title} className="h-72">
+        <Card key={item.title} className="h-72 scroll-target" id={item.title}>
           <CardHeader>
             <CardTitle>{item.title}</CardTitle>
             <CardDescription>{item.url}</CardDescription>
