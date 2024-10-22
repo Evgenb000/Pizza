@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsScrolled } from "@/hooks/use-scrollY";
+// import { useIsScrolled } from "@/hooks/use-scrollY";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -18,13 +18,13 @@ const items = [
 ];
 
 export const Categories: React.FC<Props> = ({ className }) => {
-  const isScrolled = useIsScrolled();
+  // const isScrolled = useIsScrolled();
 
   return (
     <div
       className={cn(
-        "flex rounded-xl shadow bg-gray-300 p-0.5 gap-1 fixed top-20 duration-300 transition-transform translate-x-72",
-        isScrolled ? "translate-y-[-40px]" : "translate-y-[24px]",
+        "flex rounded-xl shadow bg-gray-300 p-0.5 gap-1 fixed top-24 duration-300 transition-all translate-x-72",
+        // isScrolled ? "top-4" : "",
         className
       )}
     >

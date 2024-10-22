@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export function useIsScrolled(threshold = 100) {
+export function useIsScrolled(threshold = 50) {
   const [isScrolled, setIsScrolled] = React.useState<boolean>(false);
 
   React.useEffect(() => {
