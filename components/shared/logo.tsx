@@ -1,3 +1,4 @@
+import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
@@ -10,9 +11,10 @@ interface Props {
 
 export const Logo: React.FC<Props> = ({
   className,
-  width = 48,
-  height = 48,
+  width = 32,
+  height = 32,
 }) => {
+  const isMobile = useIsMobile();
   return (
     <div className={cn("interactive hover:bg-inherit", className)}>
       <Image
@@ -21,8 +23,8 @@ export const Logo: React.FC<Props> = ({
         }
         alt={"Logo"}
         priority
-        width={width}
-        height={height}
+        width={isMobile ? width - 8 : width}
+        height={isMobile ? height - 8 : height}
       />
     </div>
   );

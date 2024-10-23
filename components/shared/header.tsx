@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import React from "react";
 import { Container } from "./container";
@@ -7,32 +9,50 @@ import Link from "next/link";
 import { Separator } from "../ui/separator";
 import { SheetSide } from "./sheet";
 import { Searchbar } from "./searchbar";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Props {
   className?: string;
 }
 
 export const Header: React.FC<Props> = ({ className }) => {
+  const isMobile = useIsMobile();
   const signIn = false;
-  const iconSize = 32;
+  let iconSize = 32;
+  if (isMobile) {
+    iconSize = 24;
+  } else {
+    iconSize = 32;
+  }
 
   return (
     <header className={cn("w-full p-2", className)}>
-      <Container className="flex gap-24 justify-between items-center w-full">
+      <Container
+        className={cn(
+          "flex justify-between items-center w-full",
+          isMobile ? "gap-1" : "gap-4"
+        )}
+      >
         <Link href={"/"}>
-          <div className="flex items-center gap-8">
-            <Logo width={32} height={32} />
-            <div className="w-40">
-              <h1 className="font-bold">Pizza</h1>
+          <div
+            className={cn(isMobile ? "gap-2" : "gap-8", "flex items-center ")}
+          >
+            <Logo />
+            <div className={cn(isMobile ? "w-16" : '"w-40"')}>
+              <h1 className={cn("font-bold", isMobile ? " text-sm" : "")}>
+                Pizza
+              </h1>
 
-              <h2>Couldn&apos;t be better</h2>
+              <h2 className={cn(isMobile ? " text-xs" : "")}>
+                Couldn&apos;t be better
+              </h2>
             </div>
           </div>
         </Link>
 
         <Searchbar />
 
-        <div className="flex gap-2 items-center h-6">
+        <div className={cn("flex items-center h-6", isMobile ? "" : "gap-2")}>
           <Link href={"tel:+380000000000"}>
             <Phone
               className="interactive"
