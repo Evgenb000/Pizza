@@ -8,6 +8,17 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
+enum OrderStatus {
+  PENDING
+  SUCCEEDED
+  CANCELLED
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
 model User {
   id Int @id @default(autoincrement())
 
@@ -168,15 +179,4 @@ model StoryItem {
   sourceUrl String
 
   createdAt DateTime @default(now())
-}
-
-enum OrderStatus {
-  PENDING
-  SUCCEEDED
-  CANCELLED
-}
-
-enum UserRole {
-  USER
-  ADMIN
 }

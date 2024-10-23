@@ -12,6 +12,8 @@ import {
   CardTitle,
 } from "../ui/card";
 import { useIsScrolled } from "@/hooks/use-scrollY";
+import { Api } from "@/services/api-client";
+import { Input } from "../ui/input";
 
 interface Props {
   className?: string;
@@ -73,15 +75,21 @@ const items = [
 ];
 
 export const Cards: React.FC<Props> = ({ className }) => {
+  // const [products, setProducts] = React.useState([])
+  const [searchQuery, setSearchQuery] = React.useState("");
   const isMobile = useIsMobile();
   const isScrolled = useIsScrolled();
+
+  React.useEffect(() => {
+    Api.products.search(searchQuery);
+  }, [searchQuery]);
 
   return (
     <div
       className={cn(
         isMobile ? "ml-10" : isScrolled ? "ml-72" : "ml-72",
         "grid gap-4 grid-cols-3 mt-16",
-        className
+        className,
       )}
     >
       {items.map((item) => (
@@ -93,10 +101,12 @@ export const Cards: React.FC<Props> = ({ className }) => {
           <CardContent>
             <p>
               Card Content Lorem ipsum dolor sit, amet consectetur adipisicing
-              elit. Accusamus quia pariatur voluptas enim qui autem, assumenda
-              sapiente, harum quos beatae voluptate, aspernatur sequi natus sint
-              quod tenetur aut magnam nostrum.
+              elit.
             </p>
+            <Input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            ></Input>
           </CardContent>
           <CardFooter></CardFooter>
         </Card>

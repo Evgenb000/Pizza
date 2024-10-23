@@ -78,7 +78,7 @@ export const Categories: React.FC<Props> = ({ className }) => {
     <div
       className={cn(
         "fixed top-24 transition-all translate-x-72 duration-300",
-        className
+        className,
       )}
     >
       <Tabs defaultValue={items[0].title} className="w-fit">

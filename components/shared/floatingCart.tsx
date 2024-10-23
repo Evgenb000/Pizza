@@ -20,14 +20,11 @@ export const FloatingCart: React.FC<Props> = ({ className }) => {
         isScrolled
           ? "translate-y-[-2rem] translate-x-[-2rem]"
           : "translate-y-[10rem] translate-x-[15rem] ",
-        className
+        className,
       )}
     >
       {items.map((item) => (
-        <div
-          key={item.title}
-          className="items-center justify-center"
-        >
+        <div key={item.title} className="items-center justify-center">
           1123
         </div>
       ))}
