@@ -3,6 +3,8 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsScrolled } from "@/hooks/use-scrollY";
 
 interface Props {
   className?: string;
@@ -64,6 +66,9 @@ const items = [
 ];
 
 export const Categories: React.FC<Props> = ({ className }) => {
+  const isMobile = useIsMobile();
+  const isScrolled = useIsScrolled();
+
   const scrollToAnchor = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -78,7 +83,9 @@ export const Categories: React.FC<Props> = ({ className }) => {
     <div
       className={cn(
         "fixed top-24 transition-all translate-x-72 duration-300",
-        className,
+        isScrolled && "top-4",
+        isMobile && "hidden",
+        className
       )}
     >
       <Tabs defaultValue={items[0].title} className="w-fit">

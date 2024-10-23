@@ -6,6 +6,7 @@ import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import { AppSidebar } from "./appSidebar";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Container } from "./container";
+import { useIsScrolled } from "@/hooks/use-scrollY";
 
 interface Props {
   className?: string;
@@ -13,9 +14,16 @@ interface Props {
 
 export const Sidebar: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
+  const isScrolled = useIsScrolled();
 
   return (
-    <div className={cn("transition-all top-24 duration-300 fixed", className)}>
+    <div
+      className={cn(
+        "transition-all top-24 duration-300 fixed",
+        isScrolled && "top-4",
+        className
+      )}
+    >
       {isMobile ? (
         <SidebarProvider>
           <AppSidebar />
