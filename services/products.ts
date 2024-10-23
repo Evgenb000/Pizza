@@ -2,10 +2,10 @@ import { Product } from "@prisma/client";
 import { axiosInstance } from "./instance";
 import { API_ROUTES } from "./constants";
 
-export const search = async (query: string) => {
+export const products = async (query?: string, amount?: number) => {
   return (
     await axiosInstance.get<Product[]>(API_ROUTES.SEARCH_PRODUCTS, {
-      params: { query },
+      params: { query, amount },
     })
   ).data;
 };

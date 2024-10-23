@@ -5,69 +5,21 @@ import React from "react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useIsScrolled } from "@/hooks/use-scrollY";
+import { useProductsStore } from "@/store/products";
+import { categories } from "@/shared/constants";
 
 interface Props {
   className?: string;
 }
 
-const items = [
-  {
-    title: "Home",
-    url: "#",
-  },
-  {
-    title: "Inbox",
-    url: "#",
-  },
-  {
-    title: "Calendar",
-    url: "#",
-  },
-  {
-    title: "Search",
-    url: "#",
-  },
-  {
-    title: "Search1",
-    url: "#",
-  },
-  {
-    title: "Search2",
-    url: "#",
-  },
-  {
-    title: "Search3",
-    url: "#",
-  },
-  {
-    title: "Search4",
-    url: "#",
-  },
-  {
-    title: "Search5",
-    url: "#",
-  },
-  {
-    title: "Search6",
-    url: "#",
-  },
-  {
-    title: "Search7",
-    url: "#",
-  },
-  {
-    title: "Search8",
-    url: "#",
-  },
-  {
-    title: "Search9",
-    url: "#",
-  },
-];
-
 export const Categories: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
   const isScrolled = useIsScrolled();
+  const { products } = useProductsStore();
+
+  const uniqueCategories = Array.from(
+    new Set(products.map((product) => categories[product.categoryId - 1]))
+  );
 
   const scrollToAnchor = (id: string) => {
     const element = document.getElementById(id);
@@ -88,16 +40,16 @@ export const Categories: React.FC<Props> = ({ className }) => {
         className
       )}
     >
-      <Tabs defaultValue={items[0].title} className="w-fit">
+      <Tabs defaultValue={uniqueCategories[0]} className="w-fit">
         <TabsList>
-          {items.map((item) => (
+          {uniqueCategories.map((category, index) => (
             <TabsTrigger
-              key={item.title}
-              value={item.title}
-              onClick={() => scrollToAnchor(item.title)}
+              key={index}
+              value={category}
+              onClick={() => scrollToAnchor(category)}
               className=""
             >
-              {item.title}
+              {category}
             </TabsTrigger>
           ))}
         </TabsList>

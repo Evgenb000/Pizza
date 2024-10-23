@@ -2,7 +2,7 @@
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -12,69 +12,22 @@ import {
   CardTitle,
 } from "../ui/card";
 import { useIsScrolled } from "@/hooks/use-scrollY";
+import { useProductsStore } from "@/store/products";
+import Image from "next/image";
+import { categories } from "@/shared/constants";
 
 interface Props {
   className?: string;
 }
 
-const items = [
-  {
-    title: "Home",
-    url: "#",
-  },
-  {
-    title: "Inbox",
-    url: "#",
-  },
-  {
-    title: "Calendar",
-    url: "#",
-  },
-  {
-    title: "Search",
-    url: "#",
-  },
-  {
-    title: "Search1",
-    url: "#",
-  },
-  {
-    title: "Search2",
-    url: "#",
-  },
-  {
-    title: "Search3",
-    url: "#",
-  },
-  {
-    title: "Search4",
-    url: "#",
-  },
-  {
-    title: "Search5",
-    url: "#",
-  },
-  {
-    title: "Search6",
-    url: "#",
-  },
-  {
-    title: "Search7",
-    url: "#",
-  },
-  {
-    title: "Search8",
-    url: "#",
-  },
-  {
-    title: "Search9",
-    url: "#",
-  },
-];
-
 export const Cards: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
   const isScrolled = useIsScrolled();
+  const { products, fetchProducts } = useProductsStore();
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   return (
     <div
@@ -84,17 +37,19 @@ export const Cards: React.FC<Props> = ({ className }) => {
         className
       )}
     >
-      {items.map((item) => (
-        <Card key={item.title} className="h-72 scroll-target" id={item.title}>
+      {products.map((product) => (
+        <Card key={product.id} className="h-72 scroll-target">
           <CardHeader>
-            <CardTitle>{item.title}</CardTitle>
-            <CardDescription>{item.url}</CardDescription>
+            <CardTitle>{product.name}</CardTitle>
+            <CardDescription>{categories[product.categoryId]}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p>
-              Card Content Lorem ipsum dolor sit, amet consectetur adipisicing
-              elit.
-            </p>
+            <Image
+              src={product.imageUrl}
+              alt={product.name}
+              width={60}
+              height={60}
+            />
           </CardContent>
           <CardFooter></CardFooter>
         </Card>

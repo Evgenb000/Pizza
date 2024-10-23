@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const query = req.nextUrl.searchParams.get("query") || "";
+  const amountParam = req.nextUrl.searchParams.get("amount");
+  const amount = amountParam ? Number(amountParam) : null;
 
   const products = await prisma.product.findMany({
     where: {
@@ -11,7 +13,7 @@ export async function GET(req: NextRequest) {
         mode: "insensitive",
       },
     },
-    take: 5,
+    ...(amount ? { take: amount } : {}), // Если amount есть, используем take, если нет, пропускаем
   });
 
   return NextResponse.json(products);
