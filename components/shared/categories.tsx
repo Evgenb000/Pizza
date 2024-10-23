@@ -18,7 +18,7 @@ export const Categories: React.FC<Props> = ({ className }) => {
   const { products } = useProductsStore();
 
   const uniqueCategories = Array.from(
-    new Set(products.map((product) => categories[product.categoryId - 1]))
+    new Set(products.map((product) => categories[product.categoryId]))
   );
 
   const scrollToAnchor = (id: string) => {
@@ -40,20 +40,22 @@ export const Categories: React.FC<Props> = ({ className }) => {
         className
       )}
     >
-      <Tabs defaultValue={uniqueCategories[0]} className="w-fit">
-        <TabsList>
-          {uniqueCategories.map((category, index) => (
-            <TabsTrigger
-              key={index}
-              value={category}
-              onClick={() => scrollToAnchor(category)}
-              className=""
-            >
-              {category}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </Tabs>
+      {uniqueCategories.length > 0 && (
+        <Tabs defaultValue={uniqueCategories[4]} className="w-fit">
+          <TabsList>
+            {uniqueCategories.map((category, index) => (
+              <TabsTrigger
+                key={index}
+                value={category}
+                onClick={() => scrollToAnchor(category)}
+                className=""
+              >
+                {category}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
+      )}
     </div>
   );
 };

@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
         mode: "insensitive",
       },
     },
-    ...(amount ? { take: amount } : {}), // Если amount есть, используем take, если нет, пропускаем
+    ...(amount ? { take: amount } : {}),
   });
 
   return NextResponse.json(products);

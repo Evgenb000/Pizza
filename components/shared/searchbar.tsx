@@ -29,7 +29,6 @@ export const Searchbar: React.FC<Props> = ({ className }) => {
     async () => {
       try {
         const response = await Api.products.products(searchQuery, 5);
-        console.log(response);
         setProducts(response);
       } catch (error) {
         console.log(error);

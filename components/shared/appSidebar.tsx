@@ -1,5 +1,3 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -11,34 +9,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-
-const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-];
+import { useIngredientsStore } from "@/store/ingredients";
+import React from "react";
 
 interface Props {
   className?: string;
@@ -51,6 +23,12 @@ export function AppSidebar({
   variant = "sidebar",
   collapsible = "offcanvas",
 }: Props) {
+  const { ingredients, fetchIngredients } = useIngredientsStore();
+
+  React.useEffect(() => {
+    fetchIngredients();
+  }, [fetchIngredients]);
+
   return (
     <Sidebar
       collapsible={collapsible}
@@ -59,15 +37,14 @@ export function AppSidebar({
     >
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>Ingrediants</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+              {ingredients.map((ingredient) => (
+                <SidebarMenuItem key={ingredient.name}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                    <a href={ingredient.imageUrl}>
+                      <span>{ingredient.name}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
