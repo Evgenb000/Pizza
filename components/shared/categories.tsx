@@ -3,10 +3,10 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useIsScrolled } from "@/hooks/use-scrollY";
-import { useProductsStore } from "@/store/products";
+import { useIsMobile } from "@/hooks/useMobile";
+import { useIsScrolled } from "@/hooks/useScrollY";
 import { categories } from "@/shared/constants";
+import { useProducts } from "@/hooks/useProducts";
 
 interface Props {
   className?: string;
@@ -15,7 +15,7 @@ interface Props {
 export const Categories: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
   const isScrolled = useIsScrolled();
-  const { products } = useProductsStore();
+  const { products } = useProducts();
 
   const uniqueCategories = Array.from(
     new Set(products.map((product) => categories[product.categoryId]))
@@ -23,6 +23,7 @@ export const Categories: React.FC<Props> = ({ className }) => {
 
   const scrollToAnchor = (id: string) => {
     const element = document.getElementById(id);
+
     if (element) {
       element.scrollIntoView({
         behavior: "smooth",

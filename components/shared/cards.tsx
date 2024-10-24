@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/useMobile";
 import { cn } from "@/lib/utils";
 import React, { useEffect } from "react";
 import {
@@ -11,40 +11,21 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { useIsScrolled } from "@/hooks/use-scrollY";
-import { useProductsStore } from "@/store/products";
+import { useIsScrolled } from "@/hooks/useScrollY";
 import Image from "next/image";
 import { categories } from "@/shared/constants";
-import { Product } from "@prisma/client";
+import { useProducts } from "@/hooks/useProducts";
+import { useGroupByCategory } from "@/hooks/useGroupByCaterogy";
 
 interface Props {
   className?: string;
 }
 
-const groupByCategory = (products: Product[]) => {
-  return products.reduce<Record<number, Product[]>>(
-    (grouped, product) => {
-      const category = product.categoryId;
-      if (!grouped[category]) {
-        grouped[category] = [];
-      }
-      grouped[category].push(product);
-      return grouped;
-    },
-    {} as Record<number, Product[]>
-  );
-};
-
 export const Cards: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
   const isScrolled = useIsScrolled();
-  const { products, fetchProducts } = useProductsStore();
-
-  useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
-
-  const groupedProducts = groupByCategory(products);
+  const { products } = useProducts();
+  const groupedProducts = useGroupByCategory(products);
 
   return (
     <div

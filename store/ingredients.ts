@@ -11,7 +11,7 @@ export const useIngredientsStore = create<IngredientsState>((set) => ({
   ingredients: [],
   fetchIngredients: async () => {
     try {
-      const response = await Api.ingredients.ingredients();
+      const response = await Api.ingredients.getIngredients();
       set({ ingredients: response });
     } catch (error) {
       console.error(error);

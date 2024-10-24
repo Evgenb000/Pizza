@@ -11,7 +11,7 @@ export const useProductsStore = create<ProductsState>((set) => ({
   products: [],
   fetchProducts: async () => {
     try {
-      const response = await Api.products.products();
+      const response = await Api.products.getProducts();
       set({ products: response });
     } catch (error) {
       console.error(error);

@@ -4,9 +4,9 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import { AppSidebar } from "./appSidebar";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/useMobile";
 import { Container } from "./container";
-import { useIsScrolled } from "@/hooks/use-scrollY";
+import { useIsScrolled } from "@/hooks/useScrollY";
 
 interface Props {
   className?: string;

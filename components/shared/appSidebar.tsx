@@ -5,14 +5,13 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { useIngredientsStore } from "@/store/ingredients";
 import React from "react";
 import { Checkbox } from "../ui/checkbox";
 import { Button } from "../ui/button";
+import { useIngredients } from "@/hooks/useIngredients";
 
 interface Props {
   className?: string;
@@ -20,23 +19,15 @@ interface Props {
   collapsible?: "offcanvas" | "icon" | "none";
 }
 
-export let chIng: string[]; 
-
 export function AppSidebar({
   className,
   variant = "sidebar",
   collapsible = "offcanvas",
 }: Props) {
-  const { ingredients, fetchIngredients } = useIngredientsStore();
-  const [checkedIngredients, setCheckedIngredients] = React.useState<string[]>([]);
-
-  React.useEffect(() => {
-    fetchIngredients();
-  }, [fetchIngredients]);
-
-  React.useEffect(() => {
-    chIng = checkedIngredients
-  }, [checkedIngredients]);
+  const { ingredients } = useIngredients();
+  const [checkedIngredients, setCheckedIngredients] = React.useState<string[]>(
+    []
+  );
 
   const handlerChecked = (ingredientName: string) => {
     setCheckedIngredients((prev) =>

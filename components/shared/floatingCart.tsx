@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsScrolled } from "@/hooks/use-scrollY";
+import { useIsScrolled } from "@/hooks/useScrollY";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -20,7 +20,7 @@ export const FloatingCart: React.FC<Props> = ({ className }) => {
         isScrolled
           ? "translate-y-[-2rem] translate-x-[-2rem]"
           : "translate-y-[10rem] translate-x-[15rem] ",
-        className,
+        className
       )}
     >
       {items.map((item) => (

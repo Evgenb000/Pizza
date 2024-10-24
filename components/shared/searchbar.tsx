@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/useMobile";
 import { cn } from "@/lib/utils";
 import { Api } from "@/services/api-client";
 import { Product } from "@prisma/client";
@@ -28,7 +28,7 @@ export const Searchbar: React.FC<Props> = ({ className }) => {
   useDebounce(
     async () => {
       try {
-        const response = await Api.products.products(searchQuery, 5);
+        const response = await Api.products.getProducts(searchQuery, 5);
         setProducts(response);
       } catch (error) {
         console.log(error);

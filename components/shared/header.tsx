@@ -9,7 +9,7 @@ import Link from "next/link";
 import { Separator } from "../ui/separator";
 import { SheetSide } from "./sheet";
 import { Searchbar } from "./searchbar";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/useMobile";
 
 interface Props {
   className?: string;
@@ -18,7 +18,9 @@ interface Props {
 export const Header: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
   const signIn = false;
+
   let iconSize = 32;
+  
   if (isMobile) {
     iconSize = 24;
   } else {
