@@ -9,7 +9,7 @@ export function useIsScrolled(threshold = 50) {
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Обновляем состояние при монтировании
+    handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);

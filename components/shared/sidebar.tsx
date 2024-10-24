@@ -19,8 +19,8 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
   return (
     <div
       className={cn(
-        "transition-all top-24 duration-300 fixed",
-        isScrolled && "top-4",
+        "transition-all top-20 duration-300 fixed",
+        isScrolled && "floatingBlocks",
         className
       )}
     >

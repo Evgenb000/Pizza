@@ -35,8 +35,8 @@ export const Categories: React.FC<Props> = ({ className }) => {
   return (
     <div
       className={cn(
-        "fixed top-24 transition-all translate-x-72 duration-300",
-        isScrolled && "top-4",
+        "fixed top-20 transition-all translate-x-72 duration-300 border rounded-md",
+        isScrolled && "floatingBlocks",
         isMobile && "hidden",
         className
       )}

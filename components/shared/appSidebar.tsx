@@ -53,9 +53,7 @@ export function AppSidebar({
           <SidebarGroupContent>
             <SidebarMenu>
               {ingredients.map((ingredient) => (
-                <SidebarMenuItem key={ingredient.name}>
-                  <a href={ingredient.imageUrl}></a>
-
+                <SidebarMenuItem key={ingredient.name} className="py-0.5">
                   <div className="items-top flex space-x-2">
                     <Checkbox
                       id={ingredient.name}
@@ -73,7 +71,14 @@ export function AppSidebar({
                   </div>
                 </SidebarMenuItem>
               ))}
-              <Button onClick={handleClearChecked}>Clear all</Button>
+              <Button
+                onClick={handleClearChecked}
+                variant={checkedIngredients.length ? "default" : "ghost"}
+                disabled={checkedIngredients.length === 0}
+                className="mt-4"
+              >
+                Clear all
+              </Button>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
