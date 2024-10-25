@@ -5,9 +5,8 @@ import React from "react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { useIsMobile } from "@/hooks/useMobile";
 import { useIsScrolled } from "@/hooks/useScrollY";
-import { categories } from "@/shared/constants";
-import { useProducts } from "@/hooks/useProducts";
 import { Skeleton } from "../ui/skeleton";
+import { categories } from "@/prisma/constants";
 
 interface Props {
   className?: string;
@@ -16,11 +15,10 @@ interface Props {
 export const Categories: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
   const isScrolled = useIsScrolled();
-  const { products } = useProducts();
 
   const uniqueCategories = Array.from(
-    new Set(products.map((product) => categories[product.categoryId]))
-  );
+    new Set(categories.map((category) => category.name))
+  ).map((name) => categories.find((category) => category.name === name));
 
   const scrollToAnchor = (id: string) => {
     const element = document.getElementById(id);
@@ -43,7 +41,7 @@ export const Categories: React.FC<Props> = ({ className }) => {
       )}
     >
       {uniqueCategories.length && (
-        <Tabs defaultValue={uniqueCategories[4]} className="w-fit">
+        <Tabs defaultValue={"Pizzas"} className="w-fit">
           <TabsList>
             {!uniqueCategories.length
               ? Array(5)
@@ -57,11 +55,11 @@ export const Categories: React.FC<Props> = ({ className }) => {
               : uniqueCategories.map((category, index) => (
                   <TabsTrigger
                     key={index}
-                    value={category}
-                    onClick={() => scrollToAnchor(category)}
+                    value={category!.name}
+                    onClick={() => scrollToAnchor(category!.name)}
                     className=""
                   >
-                    {category}
+                    {category!.name}
                   </TabsTrigger>
                 ))}
           </TabsList>

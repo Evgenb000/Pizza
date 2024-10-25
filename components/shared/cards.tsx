@@ -13,10 +13,10 @@ import {
 } from "../ui/card";
 import { useIsScrolled } from "@/hooks/useScrollY";
 import Image from "next/image";
-import { categories } from "@/shared/constants";
 import { useProducts } from "@/hooks/useProducts";
 import { useGroupByCategory } from "@/hooks/useGroupByCaterogy";
 import { Skeleton } from "../ui/skeleton";
+import { categories } from "@/prisma/constants";
 
 interface Props {
   className?: string;
@@ -54,9 +54,9 @@ export const Cards: React.FC<Props> = ({ className }) => {
               </div>
             ))
         : Object.keys(groupedProducts).map((categoryId, index) => (
-            <div key={index} id={categories[Number(categoryId)]}>
+            <div key={index} id={categories[Number(categoryId) - 1].name}>
               <h3 className="text-xl font-bold mb-4">
-                {categories[Number(categoryId)]}
+                {categories[Number(categoryId) - 1].name}
               </h3>
 
               <div className="grid gap-4 grid-cols-3">
@@ -65,7 +65,7 @@ export const Cards: React.FC<Props> = ({ className }) => {
                     <CardHeader>
                       <CardTitle>{product.name}</CardTitle>
                       <CardDescription>
-                        {categories[Number(categoryId)]}
+                        {categories[Number(categoryId) - 1].name}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
