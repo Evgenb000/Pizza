@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sidebar,
   SidebarContent,
@@ -12,6 +14,8 @@ import React from "react";
 import { Checkbox } from "../ui/checkbox";
 import { Button } from "../ui/button";
 import { useIngredients } from "@/hooks/useIngredients";
+import { Skeleton } from "../ui/skeleton";
+import { useIsMobile } from "@/hooks/useMobile";
 
 interface Props {
   className?: string;
@@ -24,6 +28,7 @@ export function AppSidebar({
   variant = "sidebar",
   collapsible = "offcanvas",
 }: Props) {
+  const isMobile = useIsMobile();
   const { ingredients } = useIngredients();
   const [checkedIngredients, setCheckedIngredients] = React.useState<string[]>(
     []
@@ -52,23 +57,35 @@ export function AppSidebar({
           <SidebarGroupLabel>Ingredients</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="gap-0">
-              {ingredients.map((ingredient) => (
-                <SidebarMenuItem key={ingredient.name}>
-                  <label
-                    htmlFor={ingredient.name}
-                    className="items-top flex space-x-2 py-1"
-                  >
-                    <Checkbox
-                      id={ingredient.name}
-                      checked={checkedIngredients.includes(ingredient.name)}
-                      onCheckedChange={() => handlerChecked(ingredient.name)}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                      <span>{ingredient.name}</span>
-                    </div>
-                  </label>
-                </SidebarMenuItem>
-              ))}
+              {!ingredients.length
+                ? !isMobile &&
+                  Array(15)
+                    .fill(0)
+                    .map((_, index) => (
+                      <Skeleton
+                        key={index}
+                        className="w-full h-[20px] rounded-md my-1"
+                      />
+                    ))
+                : ingredients.map((ingredient) => (
+                    <SidebarMenuItem key={ingredient.name}>
+                      <label
+                        htmlFor={ingredient.name}
+                        className="items-top flex space-x-2 py-1"
+                      >
+                        <Checkbox
+                          id={ingredient.name}
+                          checked={checkedIngredients.includes(ingredient.name)}
+                          onCheckedChange={() =>
+                            handlerChecked(ingredient.name)
+                          }
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                          <span>{ingredient.name}</span>
+                        </div>
+                      </label>
+                    </SidebarMenuItem>
+                  ))}
               <Button
                 onClick={handleClearChecked}
                 variant={checkedIngredients.length ? "default" : "ghost"}

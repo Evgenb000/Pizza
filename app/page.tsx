@@ -7,7 +7,7 @@ import { FloatingCart } from "@/components/shared/floatingCart";
 export default function ProductPage() {
   return (
     <Container>
-      <main className="flex mt-4 gap-5 scroll-smooth">
+      <main className="flex mt-4 mx-1 gap-5 scroll-smooth">
         <Categories />
 
         <Sidebar />
