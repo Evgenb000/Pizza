@@ -51,24 +51,22 @@ export function AppSidebar({
         <SidebarGroup>
           <SidebarGroupLabel>Ingredients</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="gap-0">
               {ingredients.map((ingredient) => (
-                <SidebarMenuItem key={ingredient.name} className="py-0.5">
-                  <div className="items-top flex space-x-2">
+                <SidebarMenuItem key={ingredient.name}>
+                  <label
+                    htmlFor={ingredient.name}
+                    className="items-top flex space-x-2 py-1"
+                  >
                     <Checkbox
                       id={ingredient.name}
                       checked={checkedIngredients.includes(ingredient.name)}
                       onCheckedChange={() => handlerChecked(ingredient.name)}
                     />
                     <div className="grid gap-1.5 leading-none">
-                      <label
-                        htmlFor={ingredient.name}
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        <span>{ingredient.name}</span>
-                      </label>
+                      <span>{ingredient.name}</span>
                     </div>
-                  </div>
+                  </label>
                 </SidebarMenuItem>
               ))}
               <Button

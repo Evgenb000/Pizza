@@ -25,6 +25,14 @@ export const Searchbar: React.FC<Props> = ({ className }) => {
     setSearchQuery("");
   });
 
+  React.useEffect(() => {
+    if (focused) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [focused]);
+
   useDebounce(
     async () => {
       try {
