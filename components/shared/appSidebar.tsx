@@ -66,17 +66,18 @@ export function AppSidebar({
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Ingredients</SidebarGroupLabel>
+
           <SidebarGroupContent>
             <SidebarMenu className="gap-0">
               <Collapsible>
                 {!ingredients.length
                   ? !isMobile &&
-                    Array(15)
+                    Array(7)
                       .fill(0)
                       .map((_, index) => (
                         <Skeleton
                           key={index}
-                          className="w-full h-[20px] rounded-md my-1"
+                          className="w-full h-[20px] rounded-md my-1.5"
                         />
                       ))
                   : ingredients.map((ingredient, index) =>
@@ -139,6 +140,7 @@ export function AppSidebar({
                   )}
                 </CollapsibleTrigger>
               </Collapsible>
+
               <Button
                 onClick={handleClearChecked}
                 variant={checkedIngredients.length ? "default" : "ghost"}

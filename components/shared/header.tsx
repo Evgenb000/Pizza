@@ -20,7 +20,7 @@ export const Header: React.FC<Props> = ({ className }) => {
   const signIn = false;
 
   let iconSize = 32;
-  
+
   if (isMobile) {
     iconSize = 24;
   } else {
@@ -54,7 +54,12 @@ export const Header: React.FC<Props> = ({ className }) => {
 
         <Searchbar />
 
-        <div className={cn("flex items-center h-6", isMobile ? "" : "gap-2")}>
+        <div
+          className={cn(
+            "flex items-center h-6 top-1 sticky",
+            isMobile ? "" : "gap-2"
+          )}
+        >
           <Link href={"tel:+380000000000"}>
             <Phone
               className="interactive"
