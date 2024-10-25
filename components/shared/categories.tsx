@@ -42,26 +42,31 @@ export const Categories: React.FC<Props> = ({ className }) => {
         className
       )}
     >
-      <Tabs defaultValue={uniqueCategories[4]} className="w-fit">
-        <TabsList>
-          {!uniqueCategories.length
-            ? Array(5)
-                .fill(0)
-                .map((_, index) => (
-                  <Skeleton key={index} className="w-16 h-7 rounded-md mx-1" />
-                ))
-            : uniqueCategories.map((category, index) => (
-                <TabsTrigger
-                  key={index}
-                  value={category}
-                  onClick={() => scrollToAnchor(category)}
-                  className=""
-                >
-                  {category}
-                </TabsTrigger>
-              ))}
-        </TabsList>
-      </Tabs>
+      {uniqueCategories.length && (
+        <Tabs defaultValue={uniqueCategories[4]} className="w-fit">
+          <TabsList>
+            {!uniqueCategories.length
+              ? Array(5)
+                  .fill(0)
+                  .map((_, index) => (
+                    <Skeleton
+                      key={index}
+                      className="w-16 h-7 rounded-md mx-1"
+                    />
+                  ))
+              : uniqueCategories.map((category, index) => (
+                  <TabsTrigger
+                    key={index}
+                    value={category}
+                    onClick={() => scrollToAnchor(category)}
+                    className=""
+                  >
+                    {category}
+                  </TabsTrigger>
+                ))}
+          </TabsList>
+        </Tabs>
+      )}
     </div>
   );
 };

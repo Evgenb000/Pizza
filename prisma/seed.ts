@@ -60,7 +60,7 @@ async function up() {
     data: {
       name: "Pepperoni Fresh",
       imageUrl:
-        "https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp",
+        "https://media.dodostatic.net/image/r:292x292/11EE7D610A62D78598406363A9A8AD65.avif",
       categoryId: 1,
       ingredients: {
         connect: _ingredients.slice(0, 5),
@@ -72,7 +72,7 @@ async function up() {
     data: {
       name: "Cheese",
       imageUrl:
-        "https://media.dodostatic.net/image/r:233x233/11EE7D610CF7E265B7C72BE5AE757CA7.webp",
+        "https://media.dodostatic.net/image/r:292x292/11EE7D610E8BBB248F31270BE742B4BD.avif",
       categoryId: 1,
       ingredients: {
         connect: _ingredients.slice(5, 10),
@@ -84,10 +84,22 @@ async function up() {
     data: {
       name: "Chorizo ​​Fresh",
       imageUrl:
-        "https://media.dodostatic.net/image/r:584x584/11EE7D61706D472F9A5D71EB94149304.webp",
+        "https://media.dodostatic.net/image/r:292x292/11EE7D61546D8483A61A0BBAA7ADCC78.avif",
       categoryId: 1,
       ingredients: {
         connect: _ingredients.slice(10, 40),
+      },
+    },
+  });
+
+  const pizza4 = await prisma.product.create({
+    data: {
+      name: "Pesto",
+      imageUrl:
+        "https://media.dodostatic.net/image/r:292x292/11EE7D613B84A5DBB4C1C50FB9583B7E.avif",
+      categoryId: 1,
+      ingredients: {
+        connect: _ingredients.slice(10, 30),
       },
     },
   });
@@ -108,6 +120,10 @@ async function up() {
       generateProductItem({ productId: pizza3.id, pizzaType: 1, size: 20 }),
       generateProductItem({ productId: pizza3.id, pizzaType: 2, size: 30 }),
       generateProductItem({ productId: pizza3.id, pizzaType: 2, size: 40 }),
+
+      generateProductItem({ productId: pizza4.id, pizzaType: 1, size: 20 }),
+      generateProductItem({ productId: pizza4.id, pizzaType: 2, size: 30 }),
+      generateProductItem({ productId: pizza4.id, pizzaType: 2, size: 40 }),
 
       generateProductItem({ productId: 1 }),
       generateProductItem({ productId: 2 }),
