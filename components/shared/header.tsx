@@ -9,7 +9,7 @@ import Link from "next/link";
 import { Separator } from "../ui/separator";
 import { SheetSide } from "./sheet";
 import { Searchbar } from "./searchbar";
-import { useIsMobile } from "@/hooks/useMobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Props {
   className?: string;

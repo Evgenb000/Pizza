@@ -3,8 +3,8 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
-import { useIsMobile } from "@/hooks/useMobile";
-import { useIsScrolled } from "@/hooks/useScrollY";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsScrolled } from "@/hooks/us-scroll-y";
 import { Skeleton } from "../ui/skeleton";
 import { categories } from "@/prisma/constants";
 
@@ -34,7 +34,7 @@ export const Categories: React.FC<Props> = ({ className }) => {
   return (
     <div
       className={cn(
-        "fixed top-20 transition-all translate-x-72 duration-300 border rounded-md",
+        "border rounded-md",
         isScrolled && "floatingBlocks",
         isMobile && "hidden",
         className

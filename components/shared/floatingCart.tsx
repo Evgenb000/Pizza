@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsScrolled } from "@/hooks/useScrollY";
+import { useIsScrolled } from "@/hooks/us-scroll-y";
 import { cn } from "@/lib/utils";
 import React from "react";
 

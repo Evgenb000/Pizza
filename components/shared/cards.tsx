@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMobile } from "@/hooks/useMobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import React from "react";
 import {
@@ -11,10 +11,9 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { useIsScrolled } from "@/hooks/useScrollY";
 import Image from "next/image";
-import { useProducts } from "@/hooks/useProducts";
-import { useGroupByCategory } from "@/hooks/useGroupByCaterogy";
+import { useProducts } from "@/hooks/use-products";
+import { useGroupByCategory } from "@/hooks/use-group-by-caterogy";
 import { Skeleton } from "../ui/skeleton";
 import { categories } from "@/prisma/constants";
 
@@ -24,18 +23,11 @@ interface Props {
 
 export const Cards: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
-  const isScrolled = useIsScrolled();
   const { products } = useProducts();
   const groupedProducts = useGroupByCategory(products);
 
   return (
-    <div
-      className={cn(
-        "grid gap-4 mt-16 w-full",
-        isMobile ? "ml-10" : isScrolled ? "ml-72" : "ml-72",
-        className
-      )}
-    >
+    <div className={cn("grid gap-4 w-full", isMobile && "ml-10", className)}>
       {!Object.keys(groupedProducts).length
         ? Array(2)
             .fill(0)
