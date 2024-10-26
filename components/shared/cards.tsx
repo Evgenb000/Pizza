@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMobile } from "@/hooks/use-mobile";
+// import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import React from "react";
 import {
@@ -22,12 +22,12 @@ interface Props {
 }
 
 export const Cards: React.FC<Props> = ({ className }) => {
-  const isMobile = useIsMobile();
+  // const isMobile = useIsMobile();
   const { products } = useProducts();
   const groupedProducts = useGroupByCategory(products);
 
   return (
-    <div className={cn("grid gap-4 w-full", isMobile && "ml-10", className)}>
+    <div className={cn("grid gap-4 w-full", className)}>
       {!Object.keys(groupedProducts).length
         ? Array(2)
             .fill(0)
@@ -35,7 +35,7 @@ export const Cards: React.FC<Props> = ({ className }) => {
               <div key={index}>
                 <Skeleton className="w-36 h-7 rounded-md mx-1 my-4" />
 
-                <div className="grid gap-4 grid-cols-3">
+                <div className="grid gap-4 md:grid-cols-3 grid-cols-1">
                   <Skeleton className="h-72 rounded-md mx-1" />
                   <Skeleton className="h-72 rounded-md mx-1" />
                   <Skeleton className="h-72 rounded-md mx-1" />
@@ -51,7 +51,7 @@ export const Cards: React.FC<Props> = ({ className }) => {
                 {categories[Number(categoryId) - 1].name}
               </h3>
 
-              <div className="grid gap-4 grid-cols-3">
+              <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
                 {groupedProducts[Number(categoryId)].map((product) => (
                   <Card key={product.id} className="h-72 scroll-target">
                     <CardHeader>

@@ -7,7 +7,7 @@ import { Logo } from "./logo";
 import { Phone, User, UserCheck } from "lucide-react";
 import Link from "next/link";
 import { Separator } from "../ui/separator";
-import { SheetSide } from "./sheet";
+import { CartSheet } from "./cartSheet";
 import { Searchbar } from "./searchbar";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -55,10 +55,7 @@ export const Header: React.FC<Props> = ({ className }) => {
         <Searchbar />
 
         <div
-          className={cn(
-            "flex items-center h-6 top-1 sticky",
-            isMobile ? "" : "gap-2"
-          )}
+          className={cn("flex items-center h-6 top-1", isMobile ? "" : "gap-2")}
         >
           <Link href={"tel:+380000000000"}>
             <Phone
@@ -86,7 +83,7 @@ export const Header: React.FC<Props> = ({ className }) => {
 
           <Separator orientation="vertical" />
 
-          <SheetSide iconSize={iconSize} />
+          <CartSheet iconSize={iconSize} />
         </div>
       </Container>
       <Separator className="max-w-[1280px] w-full mx-auto my-1" />

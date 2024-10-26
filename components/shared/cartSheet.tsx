@@ -14,18 +14,29 @@ import {
 } from "@/components/ui/sheet";
 import { Label } from "../ui/label";
 import { ShoppingCart } from "lucide-react";
+import { useIsScrolled } from "@/hooks/us-scroll-y";
+import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
-interface SheetSideProps {
+interface CartSheetProps {
   side?: "right" | "top" | "bottom" | "left";
   iconSize?: number;
 }
 
-export function SheetSide({ side = "right", iconSize }: SheetSideProps) {
+export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
+  const isScrolled = useIsScrolled();
+  const isMobile = useIsMobile();
+
   return (
     <Sheet key={side}>
       <SheetTrigger asChild>
         <ShoppingCart
-          className="interactive"
+          className={cn(
+            isScrolled &&
+              "fixed md:h-[42px] h-8 top-6 lg:w-32 md:w-20 w-12 lg:-translate-x-[38px] md:translate-x-[10px] translate-x-[2px] bgcolor border floatingBlocks",
+            // isMobile && "w-10 h-10",
+            "interactive"
+          )}
           size={iconSize}
           aria-label="Shopping cart"
         ></ShoppingCart>

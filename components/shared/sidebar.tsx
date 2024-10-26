@@ -17,12 +17,14 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
   const isScrolled = useIsScrolled();
 
   return (
-    <div className={cn("", isScrolled && "floatingBlocks", className)}>
+    <div
+      className={cn("", isScrolled && !isMobile && "floatingBlocks", className)}
+    >
       {isMobile ? (
         <SidebarProvider>
           <AppSidebar />
           <main>
-            <SidebarTrigger />
+            <SidebarTrigger className="w-10" />
           </main>
         </SidebarProvider>
       ) : (

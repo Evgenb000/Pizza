@@ -57,7 +57,7 @@ export const Categories: React.FC<Props> = ({ className }) => {
                     key={index}
                     value={category!.name}
                     onClick={() => scrollToAnchor(category!.name)}
-                    className=""
+                    className="flex"
                   >
                     {category!.name}
                   </TabsTrigger>
