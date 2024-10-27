@@ -21,11 +21,14 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
       className={cn("", isScrolled && !isMobile && "floatingBlocks", className)}
     >
       {isMobile ? (
-        <SidebarProvider>
+        <SidebarProvider
+          className={cn(
+            "fixed duration-300",
+            isScrolled && "translate-y-[-52px]"
+          )}
+        >
           <AppSidebar />
-          <main>
-            <SidebarTrigger className="w-10" />
-          </main>
+          <SidebarTrigger className="w-10 h-10 bgcolor border rounded-md floatingBlocks" />
         </SidebarProvider>
       ) : (
         <Container>

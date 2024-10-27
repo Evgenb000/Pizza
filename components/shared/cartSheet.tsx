@@ -16,7 +16,7 @@ import { Label } from "../ui/label";
 import { ShoppingCart } from "lucide-react";
 import { useIsScrolled } from "@/hooks/us-scroll-y";
 import { cn } from "@/lib/utils";
-import { useIsMobile } from "@/hooks/use-mobile";
+// import Image from "next/image";
 
 interface CartSheetProps {
   side?: "right" | "top" | "bottom" | "left";
@@ -25,49 +25,51 @@ interface CartSheetProps {
 
 export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
   const isScrolled = useIsScrolled();
-  const isMobile = useIsMobile();
 
   return (
     <Sheet key={side}>
       <SheetTrigger asChild>
-        <ShoppingCart
+        <div
           className={cn(
             isScrolled &&
-              "fixed md:h-[42px] h-8 top-6 lg:w-32 md:w-20 w-12 lg:-translate-x-[38px] md:translate-x-[10px] translate-x-[2px] bgcolor border floatingBlocks",
-            // isMobile && "w-10 h-10",
-            "interactive"
+              "flex justify-center content-center items-center top-6 md:h-[42px] h-10 lg:w-32 md:w-20 w-10 fixed  lg:-translate-x-[38px] md:translate-x-[10px] translate-x-[10px] bgcolor border floatingBlocks"
           )}
-          size={iconSize}
-          aria-label="Shopping cart"
-        ></ShoppingCart>
+        >
+          <ShoppingCart
+            className={cn("interactive")}
+            size={iconSize}
+            aria-label="Shopping cart"
+          ></ShoppingCart>
+        </div>
       </SheetTrigger>
 
       <SheetContent side={side}>
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
+          <SheetTitle>Your cart</SheetTitle>
           <SheetDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
+            Your items are waiting in the cart, ready to be ordered.
           </SheetDescription>
         </SheetHeader>
 
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
-          </div>
+        <div className="flex content-center items-center gap-2 mt-4">
+          {/* <Image src="images/" alt="" width={16} height={16} /> */}
+          <Label htmlFor="amount" className="text-right h-full ">
+            Amount
+          </Label>
+          <Input
+            id="amount"
+            type="number"
+            placeholder="1"
+            className="col-span-3"
+          />
+          <span>
+            <b>Price$</b>
+          </span>
         </div>
 
-        <SheetFooter>
+        <SheetFooter className="mt-4">
           <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit">Order</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

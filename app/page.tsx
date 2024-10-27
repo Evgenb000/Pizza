@@ -9,8 +9,8 @@ export default function ProductPage() {
   // const isMobile = useIsMobile();
   return (
     <Container>
-      <main className="md:grid flex md:grid-cols-[260px_1fr] md:grid-rows-[40px_1fr] md:gap-4 gap-2 mx-2">
-        <Sidebar className="md:col-span-1 md:row-span-2 sticky h-fit w-fit top-6" />
+      <main className="md:grid flex flex-col md:grid-cols-[260px_1fr] md:grid-rows-[40px_1fr] md:gap-4 gap-2 mx-2">
+        <Sidebar className="md:col-span-1 md:row-span-2 sticky md:h-fit w-fit top-6" />
 
         <Categories className="md:col-start-2 md:col-span-1 md:row-span-1 sticky  h-fit w-fit top-6" />
 
