@@ -7,6 +7,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useIsScrolled } from "@/hooks/us-scroll-y";
 import { Skeleton } from "../ui/skeleton";
 import { categories } from "@/prisma/constants";
+import { useCategoryStore } from "@/store/category";
 
 interface Props {
   className?: string;
@@ -15,11 +16,7 @@ interface Props {
 export const Categories: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
   const isScrolled = useIsScrolled();
-
-  const uniqueCategories = Array.from(
-    new Set(categories.map((category) => category.name))
-  ).map((name) => categories.find((category) => category.name === name));
-
+  const activeId = useCategoryStore((state) => state.activeId);
   const scrollToAnchor = (id: string) => {
     const element = document.getElementById(id);
 
@@ -31,6 +28,8 @@ export const Categories: React.FC<Props> = ({ className }) => {
     }
   };
 
+  console.log(activeId);
+
   return (
     <div
       className={cn(
@@ -40,10 +39,14 @@ export const Categories: React.FC<Props> = ({ className }) => {
         className
       )}
     >
-      {uniqueCategories.length && (
-        <Tabs defaultValue={"Pizzas"} className="w-fit">
+      {categories.length && (
+        <Tabs
+          defaultValue={"Pizzas"}
+          value={categories?.[activeId - 1]?.name}
+          className="w-fit"
+        >
           <TabsList>
-            {!uniqueCategories.length
+            {!categories.length
               ? Array(5)
                   .fill(0)
                   .map((_, index) => (
@@ -52,7 +55,7 @@ export const Categories: React.FC<Props> = ({ className }) => {
                       className="w-16 h-7 rounded-md mx-1"
                     />
                   ))
-              : uniqueCategories.map((category, index) => (
+              : categories.map((category, index) => (
                   <TabsTrigger
                     key={index}
                     value={category!.name}

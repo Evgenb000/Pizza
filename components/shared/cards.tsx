@@ -1,28 +1,19 @@
 "use client";
 
-// import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import Image from "next/image";
 import { useProducts } from "@/hooks/use-products";
 import { useGroupByCategory } from "@/hooks/use-group-by-caterogy";
 import { Skeleton } from "../ui/skeleton";
-import { categories } from "@/prisma/constants";
+import { Category } from "@prisma/client";
+import { ProductCard } from "./card";
 
 interface Props {
   className?: string;
+  categories: Category[];
 }
 
-export const Cards: React.FC<Props> = ({ className }) => {
-  // const isMobile = useIsMobile();
+export const Cards: React.FC<Props> = ({ className, categories }) => {
   const { products } = useProducts();
   const groupedProducts = useGroupByCategory(products);
 
@@ -46,33 +37,11 @@ export const Cards: React.FC<Props> = ({ className }) => {
               </div>
             ))
         : Object.keys(groupedProducts).map((categoryId, index) => (
-            <div key={index} id={categories[Number(categoryId) - 1].name}>
-              <h3 className="text-xl font-bold mb-4">
-                {categories[Number(categoryId) - 1].name}
-              </h3>
-
-              <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-                {groupedProducts[Number(categoryId)].map((product) => (
-                  <Card key={product.id} className="h-72 scroll-target">
-                    <CardHeader>
-                      <CardTitle>{product.name}</CardTitle>
-                      <CardDescription>
-                        {categories[Number(categoryId) - 1].name}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Image
-                        src={product.imageUrl}
-                        alt={product.name}
-                        width={60}
-                        height={60}
-                      />
-                    </CardContent>
-                    <CardFooter></CardFooter>
-                  </Card>
-                ))}
-              </div>
-            </div>
+            <ProductCard
+              categoryName={categories[Number(categoryId) - 1].name}
+              key={index}
+              categoryId={categoryId}
+            />
           ))}
     </div>
   );
