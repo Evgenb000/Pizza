@@ -54,7 +54,7 @@ export function Filter({
     <Sidebar
       collapsible={collapsible}
       variant={variant}
-      className={cn("mr-[88px]", className)}
+      className={cn("", className)}
     >
       <SidebarContent>
         <SidebarGroup>

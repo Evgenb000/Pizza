@@ -23,22 +23,21 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
       {isMobile ? (
         <SidebarProvider
           className={cn(
-            "fixed duration-300 min-h-fit",
+            "fixed duration-300",
             isScrolled && "translate-y-[-52px]"
           )}
         >
-          <Filter variant="floating" collapsible="offcanvas" />
+          <Filter />
           <SidebarTrigger className="w-10 h-10 bgcolor border rounded-md floatingBlocks" />
         </SidebarProvider>
       ) : (
         <Container>
           <SidebarProvider className="min-h-fit">
             <Filter
-            // collapsible="none"
-            // variant="floating"
-            // className="border rounded-md"
+              collapsible="none"
+              variant="floating"
+              className="border rounded-md"
             />
-            <SidebarTrigger className="w-10 h-10 bgcolor border rounded-md floatingBlocks" />
           </SidebarProvider>
         </Container>
       )}
