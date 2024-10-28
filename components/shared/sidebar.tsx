@@ -3,10 +3,10 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
-import { AppSidebar } from "./appSidebar";
+import { Filter } from "./filter";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Container } from "./container";
-import { useIsScrolled } from "@/hooks/us-scroll-y";
+import { useIsScrolled } from "@/hooks/use-scroll-y";
 
 interface Props {
   className?: string;
@@ -27,13 +27,13 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
             isScrolled && "translate-y-[-52px]"
           )}
         >
-          <AppSidebar />
+          <Filter />
           <SidebarTrigger className="w-10 h-10 bgcolor border rounded-md floatingBlocks" />
         </SidebarProvider>
       ) : (
         <Container>
           <SidebarProvider className="min-h-fit">
-            <AppSidebar
+            <Filter
               collapsible="none"
               variant="floating"
               className="border rounded-md"

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useIsScrolled } from "@/hooks/us-scroll-y";
+import { useIsScrolled } from "@/hooks/use-scroll-y";
 import { Skeleton } from "../ui/skeleton";
 import { categories } from "@/prisma/constants";
 import { useCategoryStore } from "@/store/category";
@@ -13,7 +13,7 @@ interface Props {
   className?: string;
 }
 
-export const Categories: React.FC<Props> = ({ className }) => {
+export const NavCategories: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
   const isScrolled = useIsScrolled();
   const activeId = useCategoryStore((state) => state.activeId);

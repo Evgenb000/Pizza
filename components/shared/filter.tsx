@@ -11,9 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 import React from "react";
 import { Button } from "../ui/button";
-import { useIngredients } from "@/hooks/use-ingredients";
 import { Skeleton } from "../ui/skeleton";
-import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Collapsible,
   CollapsibleContent,
@@ -24,6 +22,8 @@ import { Slider } from "../ui/slider";
 import { Input } from "../ui/input";
 import { IngredientItem } from "./ingredientItem";
 import { useFilters } from "@/hooks/use-filters";
+import { useIngredients } from "@/hooks/use-ingredients";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Props {
   className?: string;
@@ -31,7 +31,7 @@ interface Props {
   collapsible?: "offcanvas" | "icon" | "none";
 }
 
-export function AppSidebar({
+export function Filter({
   className,
   variant = "sidebar",
   collapsible = "offcanvas",

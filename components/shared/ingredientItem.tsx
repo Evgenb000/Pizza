@@ -14,7 +14,10 @@ export const IngredientItem: React.FC<IngredientItemProps> = ({
   onCheckedChange,
 }) => (
   <SidebarMenuItem>
-    <label htmlFor={ingredient.name} className="items-top flex space-x-2 py-1">
+    <label
+      htmlFor={ingredient.name}
+      className="items-top flex space-x-2 py-1 cursor-pointer"
+    >
       <Checkbox
         id={ingredient.name}
         checked={checked}

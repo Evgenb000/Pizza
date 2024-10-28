@@ -17,28 +17,14 @@ interface Props {
 
 export const Header: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
-  const signIn = false;
+  const isUserLoggedIn = false;
 
-  let iconSize = 32;
-
-  if (isMobile) {
-    iconSize = 24;
-  } else {
-    iconSize = 32;
-  }
-
+  const iconSize = isMobile ? 24 : 32;
   return (
     <header className={cn("w-full p-2", className)}>
-      <Container
-        className={cn(
-          "flex justify-between items-center w-full",
-          isMobile ? "gap-1" : "gap-4"
-        )}
-      >
-        <Link href={"/"}>
-          <div
-            className={cn(isMobile ? "gap-2" : "gap-8", "flex items-center ")}
-          >
+      <Container className="flex justify-between items-center w-full gap-4">
+        <Link href="/">
+          <div className="flex items-center gap-2">
             <Logo />
             <div className={cn(isMobile ? "w-16" : '"w-40"')}>
               <h1 className={cn("font-bold", isMobile ? " text-sm" : "")}>
@@ -53,7 +39,6 @@ export const Header: React.FC<Props> = ({ className }) => {
         </Link>
 
         <Searchbar />
-
         <div
           className={cn("flex items-center h-6 top-1", isMobile ? "" : "gap-2")}
         >
@@ -67,7 +52,7 @@ export const Header: React.FC<Props> = ({ className }) => {
 
           <Separator orientation="vertical" />
 
-          {signIn ? (
+          {isUserLoggedIn ? (
             <UserCheck
               className="interactive"
               size={iconSize}

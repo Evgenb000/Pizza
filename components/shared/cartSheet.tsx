@@ -14,9 +14,8 @@ import {
 } from "@/components/ui/sheet";
 import { Label } from "../ui/label";
 import { ShoppingCart } from "lucide-react";
-import { useIsScrolled } from "@/hooks/us-scroll-y";
+import { useIsScrolled } from "@/hooks/use-scroll-y";
 import { cn } from "@/lib/utils";
-// import Image from "next/image";
 
 interface CartSheetProps {
   side?: "right" | "top" | "bottom" | "left";
@@ -32,38 +31,37 @@ export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
         <div
           className={cn(
             isScrolled &&
-              "flex justify-center content-center items-center top-6 md:h-[42px] h-10 lg:w-32 md:w-20 w-10 fixed  lg:-translate-x-[38px] md:translate-x-[10px] translate-x-[10px] bgcolor border floatingBlocks"
+              "flex justify-center content-center items-center top-6 md:h-[42px] h-10 lg:w-32 md:w-20 w-10 fixed lg:-translate-x-[38px] md:translate-x-[10px] translate-x-[10px] bgcolor border floatingBlocks cursor-pointer"
           )}
         >
           <ShoppingCart
-            className={cn("interactive")}
+            className="interactive"
             size={iconSize}
             aria-label="Shopping cart"
-          ></ShoppingCart>
+          />
         </div>
       </SheetTrigger>
 
       <SheetContent side={side}>
         <SheetHeader>
-          <SheetTitle>Your cart</SheetTitle>
+          <SheetTitle>Your Cart</SheetTitle>
           <SheetDescription>
             Your items are waiting in the cart, ready to be ordered.
           </SheetDescription>
         </SheetHeader>
 
-        <div className="flex content-center items-center gap-2 mt-4">
-          {/* <Image src="images/" alt="" width={16} height={16} /> */}
-          <Label htmlFor="amount" className="text-right h-full ">
-            Amount
+        <div className="flex items-center gap-2 mt-4">
+          <Label htmlFor="quantity" className="text-right">
+            Quantity
           </Label>
           <Input
-            id="amount"
+            id="quantity"
             type="number"
             placeholder="1"
             className="col-span-3"
           />
           <span>
-            <b>Price$</b>
+            <b>Price $</b>
           </span>
         </div>
 
