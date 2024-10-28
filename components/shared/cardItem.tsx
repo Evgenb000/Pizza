@@ -9,19 +9,22 @@ import {
 } from "../ui/card";
 import Image from "next/image";
 import { useIntersection } from "react-use";
-import { useProducts } from "@/hooks/use-products";
 import { useCategoryStore } from "@/store/category";
-import { useGroupByCategory } from "@/hooks/use-group-by-caterogy";
+import { CategoryWithProducts } from "@/types/categoryWithProducts";
+import { Button } from "../ui/button";
 
 interface Props {
   className?: string;
+  allCategories: CategoryWithProducts;
   categoryName: string;
   categoryId: string;
 }
 
-export const CardItem: React.FC<Props> = ({ categoryName, categoryId }) => {
-  const { products } = useProducts();
-  const groupedProducts = useGroupByCategory(products);
+export const CardItem: React.FC<Props> = ({
+  allCategories,
+  categoryName,
+  categoryId,
+}) => {
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
   const ref = React.useRef(null);
   const isIntersecting = useIntersection(ref, { threshold: 1 });
@@ -36,22 +39,48 @@ export const CardItem: React.FC<Props> = ({ categoryName, categoryId }) => {
     <div ref={ref} key={categoryName} id={categoryName}>
       <h3 className="text-xl font-bold mb-4">{categoryName}</h3>
 
-      <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-        {groupedProducts[Number(categoryId)]?.map((product) => (
-          <Card key={product.name} className="h-72 scroll-target">
-            <CardHeader>
-              <CardTitle>{product.name}</CardTitle>
-              <CardDescription>{categoryName}</CardDescription>
+      <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-2">
+        {allCategories.products.map((product) => (
+          <Card
+            key={product.name}
+            className="h-72 flex items-center flex-col justify-between scroll-target"
+          >
+            <CardHeader className="md:p-4 md:pb-0 lg:p-6 lg:pb-1 pb-1">
+              <CardTitle className="text-lg">{product.name}</CardTitle>
+
+              <CardDescription className="text-[10px]/[12px] md:block lg:block hidden  items-center">
+                {product.ingredients.map((i) => i.name).join(", ")}
+              </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex flex-col lg:flex-row gap-2 text-sm py-0">
               <Image
+                className="w-24 h-24 md:w-24 md:h-24 lg:w-32 lg:h-32"
                 src={product.imageUrl}
                 alt={product.name}
-                width={60}
-                height={60}
+                width={96}
+                height={96}
               />
+              <CardDescription>
+                Price:
+                <br className="hidden lg:block" />
+                <span className="font-bold">
+                  {product.items.length === 1
+                    ? ` ${product.items[0].price}$`
+                    : ` ${Math.min(...product.items.map((item) => item.price))}$ -
+                ${Math.max(...product.items.map((item) => item.price))}$`}
+                </span>
+                <br />
+                Sizes:
+                <br className="hidden lg:block" />
+                <span className="font-bold">
+                  &nbsp;
+                  {product.items.map((item) => item.size).join(", ")}
+                </span>
+              </CardDescription>
             </CardContent>
-            <CardFooter />
+            <CardFooter>
+              <Button>Add to cart</Button>
+            </CardFooter>
           </Card>
         ))}
       </div>

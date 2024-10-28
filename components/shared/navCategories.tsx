@@ -28,8 +28,6 @@ export const NavCategories: React.FC<Props> = ({ className }) => {
     }
   };
 
-  console.log(activeId);
-
   return (
     <div
       className={cn(

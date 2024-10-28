@@ -3,9 +3,10 @@ import { Cards } from "@/components/shared/cards";
 import { Sidebar } from "@/components/shared/sidebar";
 import { NavCategories } from "@/components/shared/navCategories";
 import { prisma } from "@/prisma/prisma-client";
+import { CategoryWithProducts } from "@/types/categoryWithProducts";
 
 export default async function ProductPage() {
-  const categories = await prisma.category.findMany({
+  const categories: CategoryWithProducts[] = await prisma.category.findMany({
     include: {
       products: {
         include: {

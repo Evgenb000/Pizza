@@ -4,13 +4,13 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { useProducts } from "@/hooks/use-products";
 import { Skeleton } from "../ui/skeleton";
-import { Category } from "@prisma/client";
 import { CardItem } from "./cardItem";
 import { useGroupByCategory } from "@/hooks/use-group-by-caterogy";
+import { CategoryWithProducts } from "@/types/categoryWithProducts";
 
 interface Props {
   className?: string;
-  categories: Category[];
+  categories: CategoryWithProducts[];
 }
 
 export const Cards: React.FC<Props> = ({
@@ -39,9 +39,10 @@ export const Cards: React.FC<Props> = ({
             ))
         : Object.keys(groupedProductsByCategoryId).map((categoryId, index) => (
             <CardItem
+              allCategories={allCategories[Number(categoryId) - 1]}
               categoryName={allCategories[Number(categoryId) - 1].name}
-              key={index}
               categoryId={categoryId}
+              key={index}
             />
           ))}
     </div>
