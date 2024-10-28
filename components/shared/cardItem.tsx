@@ -43,7 +43,7 @@ export const CardItem: React.FC<Props> = ({
         {allCategories.products.map((product) => (
           <Card
             key={product.name}
-            className="h-72 flex items-center flex-col justify-between scroll-target"
+            className="h-96 flex items-center flex-col justify-between scroll-target"
           >
             <CardHeader className="md:p-4 md:pb-0 lg:p-6 lg:pb-1 pb-1">
               <CardTitle className="text-lg">{product.name}</CardTitle>
@@ -52,17 +52,18 @@ export const CardItem: React.FC<Props> = ({
                 {product.ingredients.map((i) => i.name).join(", ")}
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-col lg:flex-row gap-2 text-sm py-0">
+            <CardContent className="flex flex-col lg:flex-col gap-2 text-sm py-0">
               <Image
-                className="w-24 h-24 md:w-24 md:h-24 lg:w-32 lg:h-32"
+                className="w-28 h-28 md:w-36 md:h-36"
                 src={product.imageUrl}
                 alt={product.name}
-                width={96}
-                height={96}
+                width={144}
+                height={144}
               />
               <CardDescription>
                 Price:
-                <br className="hidden lg:block" />
+                <br className="md:hidden block" />
+                {/* <br /> */}
                 <span className="font-bold">
                   {product.items.length === 1
                     ? ` ${product.items[0].price}$`
@@ -71,7 +72,7 @@ export const CardItem: React.FC<Props> = ({
                 </span>
                 <br />
                 Sizes:
-                <br className="hidden lg:block" />
+                <br className="md:hidden block" />
                 <span className="font-bold">
                   &nbsp;
                   {product.items.map((item) => item.size).join(", ")}
