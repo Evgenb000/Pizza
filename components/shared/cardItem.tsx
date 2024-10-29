@@ -12,6 +12,9 @@ import { useIntersection } from "react-use";
 import { useCategoryStore } from "@/store/category";
 import { CategoryWithProducts } from "@/types/categoryWithProducts";
 import { Button } from "../ui/button";
+import useClickAway from "react-use/lib/useClickAway";
+import { ProductsWithIngredients } from "@/types/productsWithIngredients";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface Props {
   className?: string;
@@ -26,8 +29,9 @@ export const CardItem: React.FC<Props> = ({
   categoryId,
 }) => {
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
-  const ref = React.useRef(null);
-  const isIntersecting = useIntersection(ref, { threshold: 1 });
+  const refIntersection = React.useRef(null);
+  const isIntersecting = useIntersection(refIntersection, { threshold: 1 });
+  const refClickAway = React.useRef(null);
 
   React.useEffect(() => {
     if (isIntersecting) {
@@ -35,11 +39,42 @@ export const CardItem: React.FC<Props> = ({
     }
   }, [isIntersecting, setActiveCategoryId, categoryId]);
 
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [productModal, setProductModal] =
+    React.useState<ProductsWithIngredients | null>(null);
+
+  const openModal = (product: ProductsWithIngredients) => {
+    setIsModalOpen(true);
+    setProductModal(product);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = "unset";
+  };
+
+  useClickAway(refClickAway, () => {
+    closeModal();
+  });
+
   return (
-    <div ref={ref} key={categoryName} id={categoryName}>
+    <div ref={refIntersection} key={categoryName} id={categoryName}>
       <h3 className="text-xl font-bold mb-4">{categoryName}</h3>
 
-      <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-2">
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black/50 z-30 overflow-hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
         {allCategories.products.map((product) => (
           <Card
             key={product.name}
@@ -63,7 +98,6 @@ export const CardItem: React.FC<Props> = ({
               <CardDescription>
                 Price:
                 <br className="md:hidden block" />
-                {/* <br /> */}
                 <span className="font-bold">
                   {product.items.length === 1
                     ? ` ${product.items[0].price}$`
@@ -80,11 +114,37 @@ export const CardItem: React.FC<Props> = ({
               </CardDescription>
             </CardContent>
             <CardFooter>
-              <Button>Add to cart</Button>
+              <Button onClick={() => openModal(product)}>Select</Button>
             </CardFooter>
           </Card>
         ))}
       </div>
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg z-30"
+            style={{ width: "min(90vw, 600px)" }}
+            ref={refClickAway}
+          >
+            <Card>
+              <CardHeader className="flex items-center justify-between">
+                <CardTitle>{productModal?.name}</CardTitle>
+                <Button onClick={closeModal}>Close</Button>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-2">
+                <CardDescription>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
+                  voluptatibus.
+                </CardDescription>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

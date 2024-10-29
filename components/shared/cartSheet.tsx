@@ -16,6 +16,7 @@ import { Label } from "../ui/label";
 import { ShoppingCart } from "lucide-react";
 import { useIsScrolled } from "@/hooks/use-scroll-y";
 import { cn } from "@/lib/utils";
+import { useCartItemsStore } from "@/store/cart";
 
 interface CartSheetProps {
   side?: "right" | "top" | "bottom" | "left";
@@ -24,6 +25,7 @@ interface CartSheetProps {
 
 export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
   const isScrolled = useIsScrolled();
+  const { cartItems } = useCartItemsStore();
 
   return (
     <Sheet key={side}>
@@ -49,22 +51,23 @@ export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
             Your items are waiting in the cart, ready to be ordered.
           </SheetDescription>
         </SheetHeader>
-
-        <div className="flex items-center gap-2 mt-4">
-          <Label htmlFor="quantity" className="text-right">
-            Quantity
-          </Label>
-          <Input
-            id="quantity"
-            type="number"
-            placeholder="1"
-            className="col-span-3"
-          />
-          <span>
-            <b>Price $</b>
-          </span>
-        </div>
-
+        {cartItems.map((item) => (
+          <div key={item.id} className="flex items-center gap-2 mt-4">
+            <Label htmlFor="quantity" className="text-right">
+              Quantity
+            </Label>
+            <Input
+              id="quantity"
+              type="number"
+              value={item.ingredients[0].price}
+              placeholder="1"
+              className="col-span-3"
+            />
+            <span>
+              <b>Price $</b>
+            </span>
+          </div>
+        ))}
         <SheetFooter className="mt-4">
           <SheetClose asChild>
             <Button type="submit">Order</Button>
