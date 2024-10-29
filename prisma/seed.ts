@@ -15,13 +15,20 @@ const generateProductItem = ({
   productId: number;
   pizzaType?: 1 | 2;
   size?: 20 | 30 | 40;
-}) => {
+}): Prisma.ProductItemUncheckedCreateInput => {
+  let basePrice;
+
+  if (size === 20) basePrice = randomDecimalNumber(10, 15);
+  else if (size === 30) basePrice = randomDecimalNumber(15, 20);
+  else if (size === 40) basePrice = randomDecimalNumber(20, 25);
+  else basePrice = randomDecimalNumber(5, 10);
+
   return {
     productId,
-    price: randomDecimalNumber(190, 600),
+    price: basePrice,
     pizzaType,
     size,
-  } as Prisma.ProductItemUncheckedCreateInput;
+  };
 };
 
 async function up() {
@@ -117,6 +124,7 @@ async function up() {
       generateProductItem({ productId: pizza3.id, pizzaType: 1, size: 20 }),
       generateProductItem({ productId: pizza3.id, pizzaType: 2, size: 30 }),
 
+      generateProductItem({ productId: pizza4.id, pizzaType: 2, size: 20 }),
       generateProductItem({ productId: pizza4.id, pizzaType: 2, size: 30 }),
       generateProductItem({ productId: pizza4.id, pizzaType: 2, size: 40 }),
 
@@ -135,8 +143,6 @@ async function up() {
       generateProductItem({ productId: 13 }),
       generateProductItem({ productId: 14 }),
       generateProductItem({ productId: 15 }),
-      generateProductItem({ productId: 16 }),
-      generateProductItem({ productId: 17 }),
     ],
   });
 
