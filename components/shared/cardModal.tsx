@@ -31,15 +31,15 @@ export const CardModal: React.FC<Props> = ({
   isOpen,
   setIsModalOpen,
 }) => {
-  const refClickAway = React.useRef(null);
-  const closeModal = () => {
+  const refClickAway = React.useRef<HTMLDivElement | null>(null);
+  const handleCloseModal = () => {
     setIsModalOpen(false);
     document.body.style.overflow = "unset";
   };
 
-  useClickAway(refClickAway, () => {
-    closeModal();
-  });
+  useClickAway(refClickAway, handleCloseModal);
+
+  console.log(product);
 
   return (
     <div className={cn("", className)}>
@@ -54,79 +54,76 @@ export const CardModal: React.FC<Props> = ({
             className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg z-30"
             style={{ width: "min(90vw, 600px)" }}
           >
-            <Card className="flex flex-col justify-center items-center content-center">
+            <Card className="flex flex-col justify-center items-center">
               <CardHeader className="flex items-center justify-between">
                 <CardTitle>{product?.name}</CardTitle>
               </CardHeader>
 
               <CardContent className="flex justify-center gap-2">
                 <Image
-                  src={product!.imageUrl}
-                  alt={product!.name}
+                  src={product?.imageUrl || ""}
+                  alt={product?.name || ""}
                   width={240}
                   height={240}
                 />
 
                 <div>
-                  <CardDescription className="text-[12px]/[14px] md:block lg:block hidden  items-center">
-                    {product!.ingredients.map((i) => i.name).join(", ")}
+                  <CardDescription className="text-[12px]/[14px] md:block lg:block hidden items-center">
+                    {product?.ingredients
+                      .map((ingredient) => ingredient.name)
+                      .join(", ")}
                   </CardDescription>
-                  <Tabs defaultValue="20">
-                    <TabsList>
-                      {product?.items &&
-                        product.items.map((i) => (
-                          <TabsTrigger
-                            key={i.id}
-                            value={i.size ? String(i.size) : "20"}
-                            className="text-[12px]/[14px] md:block lg:block hidden"
-                          >
-                            {i.size}
-                          </TabsTrigger>
-                        ))}
+
+                  <Tabs defaultValue="20" className="mt-4">
+                    <TabsList className="w-full border shadow-md">
+                      {product?.items?.map((item) => (
+                        <TabsTrigger
+                          key={item.id}
+                          value={item.size ? String(item.size) : "20"}
+                          className="text-[12px]/[14px] md:block lg:block hidden w-full h-full"
+                        >
+                          {item.size}
+                        </TabsTrigger>
+                      ))}
                     </TabsList>
-                    <TabsContent value={"20"}>
-                      <Tabs defaultValue="Traditional">
-                        <TabsList>
-                          {product?.items &&
-                            PizzaTypes.map((type) => (
-                              <TabsTrigger value={type} key={type}>
+
+                    {["20", "30", "40"].map((size, index) => (
+                      <TabsContent key={size} value={size}>
+                        <Tabs defaultValue="Traditional">
+                          <TabsList className="w-full border shadow-md">
+                            {PizzaTypes.map((type) => (
+                              <TabsTrigger
+                                key={type}
+                                value={type}
+                                className="w-full h-full"
+                                disabled={
+                                  product?.items[index]?.pizzaType
+                                    ? product?.items[index]?.pizzaType === 1 &&
+                                      type === "Thin-Crust"
+                                    : false
+                                }
+                              >
                                 {type}
                               </TabsTrigger>
                             ))}
-                        </TabsList>
-                      </Tabs>
-                    </TabsContent>
-                    <TabsContent value={"30"}>
-                      <Tabs defaultValue="Traditional">
-                        <TabsList>
-                          {product?.items &&
-                            PizzaTypes.map((type) => (
-                              <TabsTrigger value={type} key={type}>
-                                {type}
-                              </TabsTrigger>
-                            ))}
-                        </TabsList>
-                      </Tabs>
-                    </TabsContent>
-                    <TabsContent value={"40"}>
-                      <Tabs defaultValue="Traditional">
-                        <TabsList>
-                          {product?.items &&
-                            PizzaTypes.map((type) => (
-                              <TabsTrigger value={type} key={type}>
-                                {type}
-                              </TabsTrigger>
-                            ))}
-                        </TabsList>
-                      </Tabs>
-                    </TabsContent>
+                          </TabsList>
+                          <TabsContent value="Traditional" className="w-full">
+                            <Button className="w-full">
+                              Add to cart for ${product?.items[index]?.price}
+                            </Button>
+                          </TabsContent>
+                          <TabsContent value="Thin-Crust">
+                            <Button className="w-full">
+                              Add to cart for ${product!.items[index]?.price}
+                            </Button>
+                          </TabsContent>
+                        </Tabs>
+                      </TabsContent>
+                    ))}
                   </Tabs>
                 </div>
               </CardContent>
-              <CardFooter className="gap-8">
-                <Button onClick={closeModal}>Close</Button>
-                <Button onClick={closeModal}>Add to cart</Button>
-              </CardFooter>
+              {/* <CardFooter className="gap-8"></CardFooter> */}
             </Card>
           </motion.div>
         )}

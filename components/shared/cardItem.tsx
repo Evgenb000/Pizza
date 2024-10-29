@@ -88,11 +88,11 @@ export const CardItem: React.FC<Props> = ({
               <CardDescription>
                 Price:
                 <br className="md:hidden block" />
+                &nbsp;From
                 <span className="font-bold">
                   {product.items.length === 1
                     ? ` ${product.items[0].price}$`
-                    : ` ${Math.min(...product.items.map((item) => item.price))}$ -
-                ${Math.max(...product.items.map((item) => item.price))}$`}
+                    : ` ${Math.min(...product.items.map((item) => item.price))}$`}
                 </span>
                 <br />
                 Sizes:
