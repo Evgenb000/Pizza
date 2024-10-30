@@ -3,6 +3,7 @@ import { Product } from "@prisma/client";
 import useClickAway from "react-use/lib/useClickAway";
 import { useDebounce } from "react-use";
 import { Api } from "@/services/api-client";
+import { useLockScroll } from "./use-lock-scroll";
 
 interface ReturnProps {
   searchQuery: string;
@@ -18,6 +19,7 @@ export const useSearch = (): ReturnProps => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [focused, setFocused] = React.useState(false);
   const [products, setProducts] = React.useState<Product[]>([]);
+  const { lockScroll, unlockScroll } = useLockScroll();
   const ref = React.useRef(null);
 
   useClickAway(ref, () => {
@@ -27,11 +29,11 @@ export const useSearch = (): ReturnProps => {
 
   React.useEffect(() => {
     if (focused) {
-      document.body.style.overflow = "hidden";
+      lockScroll();
     } else {
-      document.body.style.overflow = "";
+      unlockScroll();
     }
-  }, [focused]);
+  }, [focused, lockScroll, unlockScroll]);
 
   useDebounce(
     async () => {
