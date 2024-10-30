@@ -15,6 +15,7 @@ import { Button } from "../ui/button";
 import { ProductsWithIngredients } from "@/types/productsWithIngredients";
 import { AnimatePresence, motion } from "framer-motion";
 import { CardModal } from "./cardModal";
+import { useCartItemsStore } from "@/store/cart";
 
 interface Props {
   className?: string;
@@ -47,6 +48,8 @@ export const CardItem: React.FC<Props> = ({
     setProductModal(product);
     document.body.style.overflow = "hidden";
   };
+
+  const { addCartItem } = useCartItemsStore();
 
   return (
     <div ref={refIntersection} key={categoryName} id={categoryName}>
@@ -88,7 +91,7 @@ export const CardItem: React.FC<Props> = ({
               <CardDescription>
                 Price:
                 <br className="md:hidden block" />
-                &nbsp;From
+                &nbsp;{product.items.length === 1 ? "" : "From"}
                 <span className="font-bold">
                   {product.items.length === 1
                     ? ` ${product.items[0].price}$`
@@ -104,7 +107,15 @@ export const CardItem: React.FC<Props> = ({
               </CardDescription>
             </CardContent>
             <CardFooter>
-              <Button onClick={() => openModal(product)}>Select</Button>
+              {product.items.length === 1 ? (
+                <Button
+                  onClick={() => addCartItem(product, product.items[0].price)}
+                >
+                  Add to cart for {product.items[0].price}$
+                </Button>
+              ) : (
+                <Button onClick={() => openModal(product)}>Select</Button>
+              )}
             </CardFooter>
           </Card>
         ))}
