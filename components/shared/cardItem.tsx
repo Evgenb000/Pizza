@@ -16,6 +16,7 @@ import { ProductsWithIngredients } from "@/types/productsWithIngredients";
 import { AnimatePresence, motion } from "framer-motion";
 import { CardModal } from "./cardModal";
 import { useCartItemsStore } from "@/store/cart";
+import { useLockScroll } from "@/hooks/use-lock-scroll";
 
 interface Props {
   className?: string;
@@ -29,6 +30,7 @@ export const CardItem: React.FC<Props> = ({
   categoryName,
   categoryId,
 }) => {
+  const { lockScroll } = useLockScroll();
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
   const refIntersection = React.useRef(null);
   const isIntersecting = useIntersection(refIntersection, { threshold: 1 });
@@ -46,7 +48,7 @@ export const CardItem: React.FC<Props> = ({
   const openModal = (product: ProductsWithIngredients) => {
     setIsModalOpen(true);
     setProductModal(product);
-    document.body.style.overflow = "hidden";
+    lockScroll();
   };
 
   const { addCartItem } = useCartItemsStore();
