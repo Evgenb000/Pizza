@@ -53,6 +53,8 @@ export const CardItem: React.FC<Props> = ({
 
   const { addCartItem } = useCartItemsStore();
 
+  console.log(allCategories);
+
   return (
     <div ref={refIntersection} key={categoryName} id={categoryName}>
       <h3 className="text-xl font-bold mb-4">{categoryName}</h3>
@@ -91,21 +93,25 @@ export const CardItem: React.FC<Props> = ({
                 height={144}
               />
               <CardDescription>
-                Price:
-                <br className="md:hidden block" />
-                &nbsp;{product.items.length === 1 ? "" : "From"}
-                <span className="font-bold">
-                  {product.items.length === 1
-                    ? ` ${product.items[0].price}$`
-                    : ` ${Math.min(...product.items.map((item) => item.price))}$`}
-                </span>
-                <br />
-                Sizes:
-                <br className="md:hidden block" />
-                <span className="font-bold">
-                  &nbsp;
-                  {product.items.map((item) => item.size).join(", ")}
-                </span>
+                {product.items.length === 1 ? undefined : (
+                  <>
+                    Price:
+                    <br className="md:hidden block" />
+                    &nbsp;{product.items.length === 1 ? "" : "From"}
+                    <span className="font-bold">
+                      {product.items.length === 1
+                        ? ` ${product.items[0].price}$`
+                        : ` ${Math.min(...product.items.map((item) => item.price))}$`}
+                    </span>
+                    <br />
+                    Sizes:
+                    <br className="md:hidden block" />
+                    <span className="font-bold">
+                      &nbsp;
+                      {product.items.map((item) => item.size).join(", ")}
+                    </span>
+                  </>
+                )}
               </CardDescription>
             </CardContent>
             <CardFooter>
