@@ -14,6 +14,7 @@ interface State {
     type?: string,
     size?: string
   ) => void;
+  removeCartItem: (index: number) => void;
 }
 
 export const useCartItemsStore = create<State>((set) => ({
@@ -35,5 +36,14 @@ export const useCartItemsStore = create<State>((set) => ({
       ingredientItems: [...state.ingredientItems, ingredients],
       typeItems: [...state.typeItems, type],
       sizeItems: [...state.sizeItems, size],
+    })),
+
+  removeCartItem: (index: number) =>
+    set((state) => ({
+      productItems: state.productItems.filter((_, i) => i !== index),
+      priceItems: state.priceItems.filter((_, i) => i !== index),
+      ingredientItems: state.ingredientItems.filter((_, i) => i !== index),
+      typeItems: state.typeItems.filter((_, i) => i !== index),
+      sizeItems: state.sizeItems.filter((_, i) => i !== index),
     })),
 }));

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { cn } from "@/lib/utils";
 import { ProductsWithIngredients } from "@/types/productsWithIngredients";
 import { AnimatePresence, motion } from "framer-motion";
@@ -112,8 +111,8 @@ export const CardModal: React.FC<Props> = ({
                           value={item.size ? String(item.size) : "20"}
                           className="text-[12px]/[14px] md:block lg:block hidden w-full h-full"
                           onClick={() => {
-                            setTotalPrice(item.price),
-                              setChosenSize(String(item.size));
+                            setTotalPrice(item.price);
+                            setChosenSize(String(item.size));
                           }}
                         >
                           {item.size}
@@ -145,8 +144,8 @@ export const CardModal: React.FC<Props> = ({
                                     product?.items.find(
                                       (item) => item.size === Number(size)
                                     )?.price || 0
-                                  ),
-                                    setChosenType(type);
+                                  );
+                                  setChosenType(type);
                                 }}
                               >
                                 {type}
@@ -186,8 +185,7 @@ export const CardModal: React.FC<Props> = ({
                 <Button
                   className="w-full"
                   onClick={() => {
-                    product &&
-                      totalPrice &&
+                    if (product && totalPrice) {
                       addCartItem(
                         product,
                         totalPrice,
@@ -195,6 +193,7 @@ export const CardModal: React.FC<Props> = ({
                         choosenSize,
                         choosenType
                       );
+                    }
                     setChosenIngredient([]);
                   }}
                 >

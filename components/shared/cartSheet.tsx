@@ -15,7 +15,18 @@ import { ShoppingCart } from "lucide-react";
 import { useIsScrolled } from "@/hooks/use-scroll-y";
 import { cn } from "@/lib/utils";
 import { useCartItemsStore } from "@/store/cart";
-import Image from "next/image";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
+import { CartSheetItems } from "./cartSheetItems";
 
 interface CartSheetProps {
   side?: "right" | "top" | "bottom" | "left";
@@ -24,7 +35,7 @@ interface CartSheetProps {
 
 export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
   const isScrolled = useIsScrolled();
-  const { productItems, priceItems, ingredientItems, typeItems, sizeItems } =
+  const { productItems, priceItems, ingredientItems } =
     useCartItemsStore();
 
   return (
@@ -57,73 +68,63 @@ export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
           )}
         </SheetHeader>
 
-        {productItems.length ? (
-          <div className="divide-y divide-gray-200 flex-1 overflow-y-auto">
-            {productItems.map((item, index) => (
-              <div key={item.id} className="flex items-center gap-4 py-4">
-                <Image
-                  src={item.imageUrl}
-                  alt={item.name}
-                  width={48}
-                  height={48}
-                  className="rounded-lg"
-                />
-                <span className="text-[10px] text-gray-500">
-                  {typeItems[index] && typeItems[index] + "cm."}
-                  <br />
-                  {sizeItems[index] && sizeItems[index]}
-                </span>
-                <div className="flex-1">
-                  <div className="font-semibold text-base">{item.name}</div>
-                  <div className="text-[10px] text-gray-500 max-h-12 overflow-hidden">
-                    {ingredientItems[index]?.length > 0
-                      ? ingredientItems[index].join(", ")
-                      : ""}
-                  </div>
-                </div>
-                <div className="font-semibold text-lg text-gray-800">
-                  ${priceItems[index] + (ingredientItems[index]?.length || 0)}
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center text-gray-500 mt-40 flex-1">
-            There is nothing here! <br /> You may choose what you want)
-          </div>
-        )}
+        <CartSheetItems />
 
         <SheetFooter className="mt-auto">
           <>
             {productItems.length ? (
-              <SheetClose asChild>
-                <Button type="submit" className="w-full">
-                  Order - $
-                  {productItems.reduce((acc, _, index) => {
-                    const basePrice = priceItems[index];
-                    const ingredientCount = ingredientItems[index]?.length || 0;
-                    return acc + basePrice + ingredientCount;
-                  }, 0)}
-                </Button>
-              </SheetClose>
+              <>
+                <SheetClose asChild>
+                  <Button type="submit" className="w-full">
+                    Order - $
+                    {productItems.reduce((acc, _, index) => {
+                      const basePrice = priceItems[index];
+                      const ingredientCount =
+                        ingredientItems[index]?.length || 0;
+                      return acc + basePrice + ingredientCount;
+                    }, 0)}
+                  </Button>
+                </SheetClose>
+                <AlertDialog>
+                  <AlertDialogTrigger className="w-full">
+                    <Button
+                      type="button"
+                      className="w-full hover:text-gray-400"
+                    >
+                      Clear
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent className="w-68">
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        Are you absolutely sure?
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        You will clear your cart.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <SheetClose asChild>
+                        <AlertDialogAction
+                          onClick={() => {
+                            useCartItemsStore.setState({
+                              productItems: [],
+                              priceItems: [],
+                              ingredientItems: [],
+                              typeItems: [],
+                              sizeItems: [],
+                            });
+                          }}
+                        >
+                          Continue
+                        </AlertDialogAction>
+                      </SheetClose>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </>
             ) : null}
-            <SheetClose asChild>
-              <Button
-                type="button"
-                className="w-full hover:text-gray-400"
-                onClick={() => {
-                  useCartItemsStore.setState({
-                    productItems: [],
-                    priceItems: [],
-                    ingredientItems: [],
-                    typeItems: [],
-                    sizeItems: [],
-                  });
-                }}
-              >
-                Clear
-              </Button>
-            </SheetClose>
           </>
         </SheetFooter>
       </SheetContent>

@@ -31,7 +31,7 @@ interface Props {
   collapsible?: "offcanvas" | "icon" | "none";
 }
 
-export function Filter({
+export function SidebarFilter({
   className,
   variant = "sidebar",
   collapsible = "offcanvas",
