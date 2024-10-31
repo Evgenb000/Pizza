@@ -35,29 +35,26 @@ interface CartSheetProps {
 
 export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
   const isScrolled = useIsScrolled();
-  const { productItems, priceItems, ingredientItems } =
-    useCartItemsStore();
+  const { productItems, priceItems, ingredientItems } = useCartItemsStore();
 
   return (
     <Sheet key={side}>
-      <SheetTrigger asChild>
+      <SheetTrigger asChild className={cn(isScrolled && "bg-white")}>
         <div
           className={cn(
             isScrolled &&
               "flex justify-center items-center top-6 md:h-[42px] h-10 lg:w-32 md:w-20 w-10 fixed lg:-translate-x-[45px] md:translate-x-[10px] translate-x-[10px] bgcolor border floatingBlocks cursor-pointer"
           )}
         >
-          <ShoppingCart
-            className="interactive"
-            size={iconSize}
-            aria-label="Shopping cart"
-          />
+          <div className="interactive header-icon">
+            <ShoppingCart size={iconSize} aria-label="Shopping cart" />
+          </div>
         </div>
       </SheetTrigger>
 
       <SheetContent
         side={side}
-        className="overflow-y-auto h-full flex flex-col"
+        className="overflow-y-auto h-full flex flex-col bg-white"
       >
         <SheetHeader>
           <SheetTitle>Your Cart</SheetTitle>
@@ -87,10 +84,7 @@ export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
                 </SheetClose>
                 <AlertDialog>
                   <AlertDialogTrigger className="w-full">
-                    <Button
-                      type="button"
-                      className="w-full hover:text-gray-400"
-                    >
+                    <Button type="button" className="w-full">
                       Clear
                     </Button>
                   </AlertDialogTrigger>
@@ -104,7 +98,9 @@ export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogCancel className="bg-ring">
+                        Cancel
+                      </AlertDialogCancel>
                       <SheetClose asChild>
                         <AlertDialogAction
                           onClick={() => {

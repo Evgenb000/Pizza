@@ -18,8 +18,8 @@ interface Props {
 export const Header: React.FC<Props> = ({ className }) => {
   const isMobile = useIsMobile();
   const isUserLoggedIn = false;
-
   const iconSize = isMobile ? 24 : 32;
+
   return (
     <header className={cn("w-full p-2", className)}>
       <Container className="flex justify-between items-center w-full gap-4">
@@ -42,28 +42,23 @@ export const Header: React.FC<Props> = ({ className }) => {
         <div
           className={cn("flex items-center h-6 top-1", isMobile ? "" : "gap-2")}
         >
-          <Link href={"tel:+380000000000"}>
-            <Phone
-              className="interactive"
-              size={iconSize}
-              aria-label="Call us"
-            />
+          <Link
+            href={"tel:+380000000000"}
+            className="interactive header-icon"
+          >
+            <Phone className="" size={iconSize} aria-label="Call us" />
           </Link>
 
           <Separator orientation="vertical" />
 
           {isUserLoggedIn ? (
-            <UserCheck
-              className="interactive"
-              size={iconSize}
-              aria-label="User logged in"
-            />
+            <div className="interactive header-icon">
+              <UserCheck size={iconSize} aria-label="User logged in" />
+            </div>
           ) : (
-            <User
-              className="interactive"
-              size={iconSize}
-              aria-label="User not logged in"
-            />
+            <div className="interactive header-icon">
+              <User size={iconSize} aria-label="User not logged in" />
+            </div>
           )}
 
           <Separator orientation="vertical" />

@@ -54,14 +54,16 @@ export const NavCategories: React.FC<Props> = ({ className }) => {
                     />
                   ))
               : categories.map((category, index) => (
-                  <TabsTrigger
-                    key={index}
-                    value={category!.name}
-                    onClick={() => scrollToAnchor(category!.name)}
-                    className="flex"
-                  >
-                    {category!.name}
-                  </TabsTrigger>
+                  <div className="interactive">
+                    <TabsTrigger
+                      key={index}
+                      value={category!.name}
+                      onClick={() => scrollToAnchor(category!.name)}
+                      className="flex"
+                    >
+                      {category!.name}
+                    </TabsTrigger>
+                  </div>
                 ))}
           </TabsList>
         </Tabs>

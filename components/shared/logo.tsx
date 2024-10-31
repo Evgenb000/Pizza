@@ -17,7 +17,7 @@ export const Logo: React.FC<Props> = ({
   const isMobile = useIsMobile();
 
   return (
-    <div className={cn("interactive hover:bg-inherit", className)}>
+    <div className={cn("", className)}>
       <Image
         src="https://img.icons8.com/?size=100&id=SFcWbNyRIEu1&format=png&color=000000"
         alt="Logo"

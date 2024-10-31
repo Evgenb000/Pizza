@@ -46,7 +46,7 @@ export const Searchbar: React.FC<Props> = ({ className }) => {
         />
         <input
           className={cn(
-            "rounded-2xl outline-none w-full bg-gray-100 pl-11",
+            "rounded-2xl outline-none w-full pl-11",
             isMobile && "w-full pl-8 text-sm",
             focused && isMobile && "w-screen pl-11"
           )}
