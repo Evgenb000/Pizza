@@ -1,26 +1,15 @@
-import { Api } from "@/services/api-client";
-import { Product } from "@prisma/client";
-import React from "react";
+import { useEffect } from "react";
+import { useProductsStore } from "@/store/products";
 
-interface ReturnProps {
-  products: Product[];
-}
+export const useProducts = () => {
+  const { products, fetchProducts, loading } = useProductsStore();
 
-export const useProducts = (): ReturnProps => {
-  const [products, setProducts] = React.useState<Product[]>([]);
-
-  React.useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const products = await Api.products.getProducts();
-        setProducts(products);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
+  useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
-  return { products };
+  return {
+    products,
+    loading,
+  };
 };

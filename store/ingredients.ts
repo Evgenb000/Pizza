@@ -1,20 +1,28 @@
-import { create } from "zustand";
 import { Api } from "@/services/api-client";
 import { Ingredient } from "@prisma/client";
+import { create } from "zustand";
 
-interface IngredientsState {
+interface IngredientState {
   ingredients: Ingredient[];
+  loading: boolean;
+  hasFetched: boolean;
   fetchIngredients: () => Promise<void>;
 }
 
-export const useIngredientsStore = create<IngredientsState>((set) => ({
+export const useIngredientStore = create<IngredientState>()((set, get) => ({
   ingredients: [],
+  loading: true,
+  hasFetched: false,
   fetchIngredients: async () => {
+    if (get().hasFetched) return;
+    set({ loading: true, hasFetched: true });
     try {
-      const response = await Api.ingredients.getIngredients();
-      set({ ingredients: response });
+      const ingredients = await Api.ingredients.getIngredients();
+      set({ ingredients });
     } catch (error) {
-      console.error(error);
+      console.log(error);
+    } finally {
+      set({ loading: false });
     }
   },
 }));

@@ -15,8 +15,8 @@ import { useClickAway } from "react-use";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { useCartItemsStore } from "@/store/cart";
-import { useIngredients } from "@/hooks/use-ingredients";
 import { useLockScroll } from "@/hooks/use-lock-scroll";
+import { useIngredientStore } from "@/store/ingredients";
 
 interface Props {
   className?: string;
@@ -45,7 +45,12 @@ export const CardModal: React.FC<Props> = ({
   const [choosenSize, setChosenSize] = React.useState<string>("20");
   const [choosenType, setChosenType] = React.useState<string>("Traditional");
   const { addCartItem } = useCartItemsStore();
-  const { ingredients } = useIngredients();
+  const { ingredients, loading, fetchIngredients } = useIngredientStore();
+
+  React.useEffect(() => {
+    if (!loading) return;
+    fetchIngredients();
+  }, [loading, fetchIngredients]);
 
   useClickAway(ref, handleClose);
 

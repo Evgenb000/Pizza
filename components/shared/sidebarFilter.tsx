@@ -22,8 +22,9 @@ import { Slider } from "../ui/slider";
 import { Input } from "../ui/input";
 import { IngredientItem } from "./ingredientItem";
 import { useFilters } from "@/hooks/use-filters";
-import { useIngredients } from "@/hooks/use-ingredients";
+// import { useIngredients } from "@/hooks/use-ingredients";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useIngredientStore } from "@/store/ingredients";
 
 interface Props {
   className?: string;
@@ -37,7 +38,12 @@ export function SidebarFilter({
   collapsible = "offcanvas",
 }: Props) {
   const isMobile = useIsMobile();
-  const { ingredients } = useIngredients();
+  const { ingredients, loading, fetchIngredients } = useIngredientStore();
+
+  React.useEffect(() => {
+    if (!loading) return;
+    fetchIngredients();
+  }, [loading, fetchIngredients]);
   const {
     values,
     showAll,
