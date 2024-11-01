@@ -68,7 +68,11 @@ export const CardItem: React.FC<Props> = ({
           />
         )}
       </AnimatePresence>
-
+      {allCategories.products.length === 0 && (
+        <div className="bg-white p-12 rounded-lg shadow-lg w-full">
+          Nothing here matches your search.
+        </div>
+      )}
       <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
         {allCategories.products.map((product) => (
           <Card

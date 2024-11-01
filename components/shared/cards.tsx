@@ -13,10 +13,7 @@ interface Props {
   categories: CategoryWithProducts[];
 }
 
-export const Cards: React.FC<Props> = ({
-  className,
-  categories: allCategories,
-}) => {
+export const Cards: React.FC<Props> = ({ className, categories }) => {
   const { products } = useProducts();
   const groupedProductsByCategoryId = useGroupByCategory(products);
 
@@ -39,8 +36,8 @@ export const Cards: React.FC<Props> = ({
             ))
         : Object.keys(groupedProductsByCategoryId).map((categoryId, index) => (
             <CardItem
-              allCategories={allCategories[Number(categoryId) - 1]}
-              categoryName={allCategories[Number(categoryId) - 1].name}
+              allCategories={categories[Number(categoryId) - 1]}
+              categoryName={categories[Number(categoryId) - 1].name}
               categoryId={categoryId}
               key={index}
             />
