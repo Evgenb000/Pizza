@@ -53,8 +53,6 @@ export const CardItem: React.FC<Props> = ({
 
   const { addCartItem } = useCartItemsStore();
 
-  console.log(allCategories);
-
   return (
     <div ref={refIntersection} key={categoryName} id={categoryName}>
       <h3 className="text-xl font-bold mb-4">{categoryName}</h3>

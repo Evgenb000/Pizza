@@ -54,7 +54,7 @@ export const NavCategories: React.FC<Props> = ({ className }) => {
                     />
                   ))
               : categories.map((category, index) => (
-                  <div className="interactive">
+                  <div key={index} className="interactive">
                     <TabsTrigger
                       key={index}
                       value={category!.name}
