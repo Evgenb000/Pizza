@@ -42,7 +42,9 @@ export const useFilters = (): ReturnProps => {
       arrayFormat: "comma",
     });
 
-    router.push(`?${query}`, { scroll: false });
+    window.history.pushState({}, "", `?${query}`);
+
+    // router.push(`?${query}`, { scroll: false });
   }, [values, checkedIngredients, router]);
 
   const handleInputChange = (index: number, newValue: string) => {

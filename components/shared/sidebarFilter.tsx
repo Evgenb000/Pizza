@@ -21,10 +21,10 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { Slider } from "../ui/slider";
 import { Input } from "../ui/input";
 import { IngredientItem } from "./ingredientItem";
+import { useFilters } from "@/hooks/use-filters";
+// import { useIngredients } from "@/hooks/use-ingredients";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useIngredientStore } from "@/store/ingredients";
-import { useRouter, useSearchParams } from "next/navigation";
-import QueryString from "qs";
 
 interface Props {
   className?: string;
@@ -44,75 +44,17 @@ export function SidebarFilter({
     if (!loading) return;
     fetchIngredients();
   }, [loading, fetchIngredients]);
-
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const [showAll, setShowAll] = React.useState(false);
-  const [checkedIngredients, setCheckedIngredients] = React.useState<string[]>(
-    () => {
-      const ingredients = searchParams.get("checkedIngredients");
-      return ingredients ? ingredients.split(",") : [];
-    }
-  );
-
-  const [values, setValues] = React.useState([
-    Number(searchParams.get("minPrice")) || 0,
-    Number(searchParams.get("maxPrice")) || 100,
-  ]);
-
-  React.useEffect(() => {
-    const filtered = {
-      ...(values[0] !== 0 && { minPrice: values[0] }),
-      ...(values[1] !== 100 && { maxPrice: values[1] }),
-      checkedIngredients:
-        checkedIngredients.length > 0 ? checkedIngredients : undefined,
-    };
-
-    const query = QueryString.stringify(filtered, {
-      arrayFormat: "comma",
-    });
-
-    window.history.pushState({}, "", `?${query}`);
-
-    // router.push(`?${query}`, { scroll: false });
-  }, [values, checkedIngredients, router]);
-
-  const handleInputChange = (index: number, newValue: string) => {
-    const clampedValue = Math.max(0, Math.min(100, Number(newValue)));
-    const updatedValues = [...values];
-    updatedValues[index] = clampedValue;
-    if (updatedValues[0] > updatedValues[1]) {
-      setValues([updatedValues[1], updatedValues[0]]);
-    } else {
-      setValues(updatedValues);
-    }
-  };
-
-  const handleSliderChange = (newValues: number[]) => {
-    setValues(newValues);
-  };
-
-  const handlerChecked = (ingredientName: string) => {
-    setCheckedIngredients((prev) =>
-      prev.includes(ingredientName)
-        ? prev.filter((name) => name !== ingredientName)
-        : [...prev, ingredientName]
-    );
-  };
-
-  const handleClear = () => {
-    setCheckedIngredients([]);
-    setValues([0, 100]);
-  };
-
-  const handleShowAll = () => {
-    setShowAll(!showAll);
-  };
-
-  const disabledButton =
-    checkedIngredients.length === 0 &&
-    values.includes(0) &&
-    values.includes(100);
+  const {
+    values,
+    showAll,
+    checkedIngredients,
+    disabledButton,
+    handleInputChange,
+    handleSliderChange,
+    handlerChecked,
+    handleShowAll,
+    handleClear,
+  } = useFilters();
 
   return (
     <Sidebar
