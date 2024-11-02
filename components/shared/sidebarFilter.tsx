@@ -22,7 +22,6 @@ import { Slider } from "../ui/slider";
 import { Input } from "../ui/input";
 import { IngredientItem } from "./ingredientItem";
 import { useFilters } from "@/hooks/use-filters";
-// import { useIngredients } from "@/hooks/use-ingredients";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useIngredientStore } from "@/store/ingredients";
 
@@ -128,15 +127,15 @@ export function SidebarFilter({
             <div className="flex items-center gap-1 w-full">
               <Input
                 type="number"
-                step={5}
+                step={1}
                 placeholder="0"
                 value={values[0]}
                 onChange={(e) => handleInputChange(0, e.target.value)}
               />
               <Input
                 type="number"
-                step={5}
-                placeholder="100"
+                step={1}
+                placeholder="40"
                 value={values[1]}
                 onChange={(e) => handleInputChange(1, e.target.value)}
               />
@@ -144,8 +143,10 @@ export function SidebarFilter({
             <Slider
               value={values}
               onValueChange={handleSliderChange}
-              step={5}
+              step={1}
               className="w-full mt-4"
+              min={0}
+              max={40}
             />
           </SidebarGroupContent>
 

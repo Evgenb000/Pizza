@@ -42,12 +42,17 @@ export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
       <SheetTrigger asChild className={cn(isScrolled && "bg-white")}>
         <div
           className={cn(
+            "interactive",
             isScrolled &&
-              "flex justify-center items-center top-6 md:h-[42px] h-10 lg:w-32 md:w-20 w-10 fixed lg:-translate-x-[45px] md:translate-x-[10px] translate-x-[10px] bgcolor border floatingBlocks cursor-pointer"
+              "!z-50 !fixed flex justify-center items-center top-6 md:h-[42px] h-10 lg:w-32 md:w-20 w-10 lg:-translate-x-[45px] md:translate-x-[10px] translate-x-[10px] bgcolor border floatingBlocks cursor-pointer"
           )}
         >
-          <div className="interactive header-icon">
-            <ShoppingCart size={iconSize} aria-label="Shopping cart" />
+          <div className="header-icon">
+            <ShoppingCart
+              size={iconSize}
+              aria-label="Shopping cart"
+              className="w-full"
+            />
           </div>
         </div>
       </SheetTrigger>

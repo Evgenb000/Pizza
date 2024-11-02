@@ -27,13 +27,13 @@ export const useFilters = (): ReturnProps => {
 
   const [values, setValues] = React.useState([
     Number(searchParams.get("minPrice")) || 0,
-    Number(searchParams.get("maxPrice")) || 100,
+    Number(searchParams.get("maxPrice")) || 40,
   ]);
 
   React.useEffect(() => {
     const filtered = {
       ...(values[0] !== 0 && { minPrice: values[0] }),
-      ...(values[1] !== 100 && { maxPrice: values[1] }),
+      ...(values[1] !== 40 && { maxPrice: values[1] }),
       checkedIngredients:
         checkedIngredients.length > 0 ? checkedIngredients : undefined,
     };
@@ -48,7 +48,7 @@ export const useFilters = (): ReturnProps => {
   }, [values, checkedIngredients, router]);
 
   const handleInputChange = (index: number, newValue: string) => {
-    const clampedValue = Math.max(0, Math.min(100, Number(newValue)));
+    const clampedValue = Math.max(0, Math.min(40, Number(newValue)));
     const updatedValues = [...values];
     updatedValues[index] = clampedValue;
     if (updatedValues[0] > updatedValues[1]) {
@@ -72,7 +72,7 @@ export const useFilters = (): ReturnProps => {
 
   const handleClear = () => {
     setCheckedIngredients([]);
-    setValues([0, 100]);
+    setValues([0, 40]);
   };
 
   const handleShowAll = () => {
@@ -82,7 +82,7 @@ export const useFilters = (): ReturnProps => {
   const disabledButton =
     checkedIngredients.length === 0 &&
     values.includes(0) &&
-    values.includes(100);
+    values.includes(40);
 
   return {
     values,

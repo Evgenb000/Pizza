@@ -25,8 +25,6 @@ interface Props {
   setIsModalOpen: (value: boolean) => void;
 }
 
-const pizzaTypes = ["Traditional", "Thin-Crust"];
-
 export const CardModal: React.FC<Props> = ({
   className,
   product,
@@ -37,13 +35,15 @@ export const CardModal: React.FC<Props> = ({
   const { unlockScroll } = useLockScroll();
   const handleClose = () => {
     setIsModalOpen(false);
-    setChosenIngredient([]);
+    setChosenIngredients([]);
     unlockScroll();
   };
   const [totalPrice, setTotalPrice] = React.useState<number | null>(null);
-  const [choosenIngredient, setChosenIngredient] = React.useState<string[]>([]);
-  const [choosenSize, setChosenSize] = React.useState<string>("20");
-  const [choosenType, setChosenType] = React.useState<string>("Traditional");
+  const [chosenIngredients, setChosenIngredients] = React.useState<string[]>(
+    []
+  );
+  const [chosenSize, setChosenSize] = React.useState<string>("20");
+  const [chosenType, setChosenType] = React.useState<string>("Traditional");
   const { addCartItem } = useCartItemsStore();
   const { ingredients, loading, fetchIngredients } = useIngredientStore();
 
@@ -55,10 +55,10 @@ export const CardModal: React.FC<Props> = ({
   useClickAway(ref, handleClose);
 
   const handleChooseIngredient = (ingredient: string) => {
-    if (choosenIngredient.includes(ingredient)) {
-      setChosenIngredient(choosenIngredient.filter((i) => i !== ingredient));
+    if (chosenIngredients.includes(ingredient)) {
+      setChosenIngredients(chosenIngredients.filter((i) => i !== ingredient));
     } else {
-      setChosenIngredient([...choosenIngredient, ingredient]);
+      setChosenIngredients([...chosenIngredients, ingredient]);
     }
   };
 
@@ -129,7 +129,7 @@ export const CardModal: React.FC<Props> = ({
                       <TabsContent key={size} value={size}>
                         <Tabs defaultValue="Traditional">
                           <TabsList className="w-full border shadow-md">
-                            {pizzaTypes.map((type) => (
+                            {["Traditional", "Thin-Crust"].map((type) => (
                               <TabsTrigger
                                 key={type}
                                 value={type}
@@ -168,7 +168,7 @@ export const CardModal: React.FC<Props> = ({
                         key={ingredient.name}
                         className={cn(
                           "p-1 border rounded-md shadow-md",
-                          choosenIngredient.includes(ingredient.name)
+                          chosenIngredients.includes(ingredient.name)
                             ? "bg-gray-200"
                             : ""
                         )}
@@ -194,15 +194,16 @@ export const CardModal: React.FC<Props> = ({
                       addCartItem(
                         product,
                         totalPrice,
-                        choosenIngredient,
-                        choosenSize,
-                        choosenType
+                        chosenIngredients,
+                        chosenSize,
+                        chosenType
                       );
                     }
-                    setChosenIngredient([]);
+                    setChosenIngredients([]);
                   }}
                 >
-                  Add to cart for ${totalPrice || 0}
+                  Add to cart for $
+                  {(totalPrice && totalPrice + chosenIngredients.length) || 0}
                 </Button>
               </CardFooter>
             </Card>
