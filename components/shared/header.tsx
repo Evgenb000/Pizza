@@ -13,9 +13,10 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Props {
   className?: string;
+  checkout?: boolean;
 }
 
-export const Header: React.FC<Props> = ({ className }) => {
+export const Header: React.FC<Props> = ({ className, checkout }) => {
   const isMobile = useIsMobile();
   const isUserLoggedIn = false;
   const iconSize = isMobile ? 24 : 32;
@@ -38,14 +39,11 @@ export const Header: React.FC<Props> = ({ className }) => {
           </div>
         </Link>
 
-        <Searchbar />
+        {!checkout && <Searchbar />}
         <div
           className={cn("flex items-center h-6 top-1", isMobile ? "" : "gap-2")}
         >
-          <Link
-            href={"tel:+380000000000"}
-            className="interactive header-icon"
-          >
+          <Link href={"tel:+380000000000"} className="interactive header-icon">
             <Phone className="" size={iconSize} aria-label="Call us" />
           </Link>
 
@@ -61,9 +59,9 @@ export const Header: React.FC<Props> = ({ className }) => {
             </div>
           )}
 
-          <Separator orientation="vertical" />
+          {!checkout && <Separator orientation="vertical" />}
 
-          <CartSheet iconSize={iconSize} />
+          {!checkout && <CartSheet iconSize={iconSize} />}
         </div>
       </Container>
       <Separator className="max-w-[1280px] w-full mx-auto my-1" />
