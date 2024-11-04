@@ -36,7 +36,8 @@ interface CartSheetProps {
 
 export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
   const isScrolled = useIsScrolled();
-  const { productItems, priceItems, ingredientItems } = useCartItemsStore();
+  const { productItems, totalPrice } =
+    useCartItemsStore();
 
   return (
     <Sheet key={side}>
@@ -79,15 +80,7 @@ export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
               <>
                 <SheetClose asChild>
                   <Button type="submit" className="w-full">
-                    <Link href={"/checkout"}>
-                      Order - $
-                      {productItems.reduce((acc, _, index) => {
-                        const basePrice = priceItems[index];
-                        const ingredientCount =
-                          ingredientItems[index]?.length || 0;
-                        return acc + basePrice + ingredientCount;
-                      }, 0)}
-                    </Link>
+                    <Link href={"/checkout"}>Order - $ {totalPrice}</Link>
                   </Button>
                 </SheetClose>
                 <AlertDialog>

@@ -23,7 +23,7 @@ export default function CheckoutPage() {
           </ChechoutBlock>
         </main>
 
-        <ChechoutBlock className="mt-12 w-fit">
+        <ChechoutBlock className="mt-12 w-fit h-fit sticky top-6">
           <CheckoutPayment />
         </ChechoutBlock>
       </div>
