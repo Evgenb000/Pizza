@@ -15,7 +15,7 @@ import { Button } from "../ui/button";
 import { ProductsWithIngredients } from "@/types/productsWithIngredients";
 import { AnimatePresence, motion } from "framer-motion";
 import { CardModal } from "./cardModal";
-import { useCartItemsStore } from "@/store/cart";
+import { useCartItemsStore } from "@/store/cartItems";
 import { useLockScroll } from "@/hooks/use-lock-scroll";
 
 interface Props {

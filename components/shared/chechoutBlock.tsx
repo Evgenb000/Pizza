@@ -8,7 +8,7 @@ interface Props {
 
 export const ChechoutBlock: React.FC<Props> = ({ className, children }) => {
   return (
-    <div className={cn("w-full bg-white rounded-md shadow-md p-4", className)}>
+    <div className={cn("w-full bg-white rounded-md shadow-md p-6", className)}>
       {children}
     </div>
   );

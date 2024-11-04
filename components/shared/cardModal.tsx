@@ -14,7 +14,7 @@ import { Button } from "../ui/button";
 import { useClickAway } from "react-use";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { useCartItemsStore } from "@/store/cart";
+import { useCartItemsStore } from "@/store/cartItems";
 import { useLockScroll } from "@/hooks/use-lock-scroll";
 import { useIngredientStore } from "@/store/ingredients";
 

@@ -14,7 +14,7 @@ import {
 import { ShoppingCart } from "lucide-react";
 import { useIsScrolled } from "@/hooks/use-scroll-y";
 import { cn } from "@/lib/utils";
-import { useCartItemsStore } from "@/store/cart";
+import { useCartItemsStore } from "@/store/cartItems";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,6 +27,7 @@ import {
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import { CartSheetItems } from "./cartSheetItems";
+import Link from "next/link";
 
 interface CartSheetProps {
   side?: "right" | "top" | "bottom" | "left";
@@ -78,13 +79,15 @@ export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
               <>
                 <SheetClose asChild>
                   <Button type="submit" className="w-full">
-                    Order - $
-                    {productItems.reduce((acc, _, index) => {
-                      const basePrice = priceItems[index];
-                      const ingredientCount =
-                        ingredientItems[index]?.length || 0;
-                      return acc + basePrice + ingredientCount;
-                    }, 0)}
+                    <Link href={"/checkout"}>
+                      Order - $
+                      {productItems.reduce((acc, _, index) => {
+                        const basePrice = priceItems[index];
+                        const ingredientCount =
+                          ingredientItems[index]?.length || 0;
+                        return acc + basePrice + ingredientCount;
+                      }, 0)}
+                    </Link>
                   </Button>
                 </SheetClose>
                 <AlertDialog>
