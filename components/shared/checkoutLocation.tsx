@@ -14,7 +14,12 @@ export const ChechoutLocation: React.FC<Props> = ({ className }) => {
       <h2>Delivery address</h2>
       <Separator orientation="horizontal" />
       <div className={cn("flex flex-col gap-4 mt-6")}>
-        <LabeledInput label="Address" placeholder="Enter your address..." type="address" />
+        <LabeledInput
+          label="Address"
+          placeholder="Enter your address..."
+          type="address"
+          required
+        />
 
         <label className="flex flex-col gap-1">
           <span className="text-sm font-medium">Message</span>

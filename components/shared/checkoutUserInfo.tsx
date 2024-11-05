@@ -17,11 +17,13 @@ export const ChechoutUserInfo: React.FC<Props> = ({ className }) => {
           label="Name"
           placeholder="Enter your name..."
           type="name"
+          required
         />
         <LabeledInput
           label="Last name"
           placeholder="Enter your last name..."
           type="lastName"
+          required
         />
         <LabeledInput
           label="Email"
@@ -32,6 +34,7 @@ export const ChechoutUserInfo: React.FC<Props> = ({ className }) => {
           label="Phone number"
           placeholder="Enter your phone number..."
           type="tel"
+          required
         />
       </div>
     </section>

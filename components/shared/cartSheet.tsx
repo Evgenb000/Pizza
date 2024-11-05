@@ -36,8 +36,7 @@ interface CartSheetProps {
 
 export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
   const isScrolled = useIsScrolled();
-  const { productItems, totalPrice } =
-    useCartItemsStore();
+  const { productItems, totalPrice } = useCartItemsStore();
 
   return (
     <Sheet key={side}>
@@ -46,7 +45,7 @@ export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
           className={cn(
             "interactive",
             isScrolled &&
-              "!z-50 !fixed flex justify-center items-center top-6 md:h-[42px] h-10 lg:w-32 md:w-20 w-10 lg:-translate-x-[45px] md:translate-x-[10px] translate-x-[10px] bgcolor border floatingBlocks cursor-pointer"
+              "!z-50 !fixed flex justify-center items-center top-6 md:h-[42px] h-10 lg:w-32 md:w-20 w-10 lg:-translate-x-[30px] md:translate-x-[10px] translate-x-[10px] bgcolor border floatingBlocks cursor-pointer"
           )}
         >
           <div className="header-icon">
