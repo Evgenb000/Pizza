@@ -64,7 +64,9 @@ export const CheckoutPayment: React.FC<Props> = ({ className }) => {
         <div className="text-sm">I have a promo code</div>
         <div className="text-sm text-green-500">try 1111</div>
       </div>
-      <Button className="w-full mt-6">Proceed to Pay</Button>
+      <Button className="w-full mt-6" type="submit">
+        Proceed to Pay
+      </Button>
     </div>
   );
 };
