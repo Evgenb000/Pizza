@@ -17,6 +17,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { useCartItemsStore } from "@/store/cartItems";
 import { useLockScroll } from "@/hooks/use-lock-scroll";
 import { useIngredientStore } from "@/store/ingredients";
+import { Toaster } from "../ui/toaster";
+import { useToast } from "@/hooks/use-toast";
+import { SquareCheck } from "lucide-react";
 
 interface Props {
   className?: string;
@@ -46,7 +49,7 @@ export const CardModal: React.FC<Props> = ({
   const [chosenType, setChosenType] = React.useState<string>("Traditional");
   const { addCartItem } = useCartItemsStore();
   const { ingredients, loading, fetchIngredients } = useIngredientStore();
-
+  const { toast } = useToast();
   React.useEffect(() => {
     if (!loading) return;
     fetchIngredients();
@@ -70,6 +73,7 @@ export const CardModal: React.FC<Props> = ({
 
   return (
     <div className={cn("", className)}>
+      <Toaster />
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -200,6 +204,13 @@ export const CardModal: React.FC<Props> = ({
                       );
                     }
                     setChosenIngredients([]);
+                    toast({
+                      title: "Success!",
+                      description: "Product added to cart",
+                      action: (
+                        <SquareCheck className="text-center text-green-500" />
+                      ),
+                    });
                   }}
                 >
                   Add to cart for $

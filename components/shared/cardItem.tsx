@@ -17,6 +17,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { CardModal } from "./cardModal";
 import { useCartItemsStore } from "@/store/cartItems";
 import { useLockScroll } from "@/hooks/use-lock-scroll";
+import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "../ui/toaster";
+import { SquareCheck } from "lucide-react";
 
 interface Props {
   className?: string;
@@ -50,11 +53,13 @@ export const CardItem: React.FC<Props> = ({
     setSelectedProduct(product);
     lockScroll();
   };
+  const { toast } = useToast();
 
   const { addCartItem } = useCartItemsStore();
 
   return (
     <div ref={intersectionRef} key={categoryName} id={categoryName}>
+      <Toaster />
       <h3 className="text-xl font-bold mb-4">{categoryName}</h3>
 
       <AnimatePresence>
@@ -121,7 +126,16 @@ export const CardItem: React.FC<Props> = ({
               <CardFooter>
                 {product.items.length === 1 ? (
                   <Button
-                    onClick={() => addCartItem(product, product.items[0].price)}
+                    onClick={() => (
+                      addCartItem(product, product.items[0].price),
+                      toast({
+                        title: "Success!",
+                        description: `Product added to cart ${(<SquareCheck />)}`,
+                        action: (
+                          <SquareCheck className="text-center text-green-500" />
+                        ),
+                      })
+                    )}
                   >
                     Add to cart for {product.items[0].price}$
                   </Button>
