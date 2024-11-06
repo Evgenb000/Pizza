@@ -1,15 +1,16 @@
-import { useEffect } from "react";
+import { useMemo } from "react";
 import { useProductsStore } from "@/store/products";
 
 export const useProducts = () => {
   const { products, fetchProducts, loading } = useProductsStore();
 
-  useEffect(() => {
+  const data = useMemo(() => {
     fetchProducts();
-  }, [fetchProducts]);
+    return {
+      products,
+      loading,
+    };
+  }, [fetchProducts, loading, products]);
 
-  return {
-    products,
-    loading,
-  };
+  return data;
 };

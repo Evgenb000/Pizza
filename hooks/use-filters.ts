@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import QueryString from "qs";
 import React from "react";
@@ -30,7 +31,7 @@ export const useFilters = (): ReturnProps => {
     Number(searchParams.get("maxPrice")) || 40,
   ]);
 
-  React.useEffect(() => {
+  const filtered = useMemo(() => {
     const filtered = {
       ...(values[0] !== 0 && { minPrice: values[0] }),
       ...(values[1] !== 40 && { maxPrice: values[1] }),
@@ -38,14 +39,18 @@ export const useFilters = (): ReturnProps => {
         checkedIngredients.length > 0 ? checkedIngredients : undefined,
     };
 
-    const query = QueryString.stringify(filtered, {
+    return filtered;
+  }, [values, checkedIngredients]);
+
+  const query = useMemo(() => {
+    return QueryString.stringify(filtered, {
       arrayFormat: "comma",
     });
+  }, [filtered]);
 
-    // window.history.pushState({}, "", `?${query}`);
-
+  React.useEffect(() => {
     router.push(`?${query}`, { scroll: false });
-  }, [values, checkedIngredients, router]);
+  }, [query, router]);
 
   const handleInputChange = (index: number, newValue: string) => {
     const clampedValue = Math.max(0, Math.min(40, Number(newValue)));

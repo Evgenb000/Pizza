@@ -60,7 +60,7 @@ export const Searchbar: React.FC<Props> = ({ className }) => {
         {products.length > 0 && (
           <div
             className={cn(
-              "absolute w-full right-0 lef bg-white rounded-xl py-2 top-14 shadow-md transition-all hidden opacity-0 z-30",
+              "absolute w-full right-0 lef bg-white rounded-xl py-2 top-14 shadow-md transition-all hidden opacity-0 z-[3]",
               focused && "opacity-100 top-12 duration-0 block translate-y-0",
               isMobile && "w-full left-0",
               !focused && isMobile ? "duration-0" : "duration-200",

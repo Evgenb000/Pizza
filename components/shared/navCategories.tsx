@@ -31,7 +31,7 @@ export const NavCategories: React.FC<Props> = ({ className }) => {
   return (
     <div
       className={cn(
-        "border rounded-md z-30",
+        "border rounded-md z-[2]",
         isScrolled && "floatingBlocks",
         isMobile && "hidden",
         className

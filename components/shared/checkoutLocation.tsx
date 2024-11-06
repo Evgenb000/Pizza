@@ -20,6 +20,7 @@ export const ChechoutLocation: React.FC<Props> = ({ className }) => {
       <Separator orientation="horizontal" />
       <div className={cn("flex flex-col gap-4 mt-6")}>
         <LabeledInput
+          key="address"
           label="Address"
           placeholder="Enter your address..."
           type="address"

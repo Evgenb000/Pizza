@@ -3,7 +3,7 @@ import { z } from "zod";
 export const checkoutFormSchema = z.object({
   name: z
     .string()
-    .min(2, { message: "First Name must be at least 2 characters long" }),
+    .min(2, { message: "Name must be at least 2 characters long" }),
   lastName: z
     .string()
     .min(2, { message: "Last Name must be at least 2 characters long" }),

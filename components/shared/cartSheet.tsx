@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -77,16 +77,19 @@ export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
           <>
             {productItems.length ? (
               <>
-                <SheetClose asChild>
+                <Link href={"/checkout"} className="w-full h-full">
                   <Button type="submit" className="w-full">
-                    <Link href={"/checkout"}>Order - $ {totalPrice}</Link>
+                    Order - $ {totalPrice}
                   </Button>
-                </SheetClose>
+                </Link>
                 <AlertDialog>
-                  <AlertDialogTrigger className="w-full">
-                    <Button type="button" className="w-full">
-                      Clear
-                    </Button>
+                  <AlertDialogTrigger
+                    className={cn(
+                      buttonVariants({ variant: "default" }),
+                      "w-full"
+                    )}
+                  >
+                    Clear
                   </AlertDialogTrigger>
                   <AlertDialogContent className="w-68">
                     <AlertDialogHeader>
