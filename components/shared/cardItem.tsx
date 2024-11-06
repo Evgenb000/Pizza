@@ -130,7 +130,7 @@ export const CardItem: React.FC<Props> = ({
                       addCartItem(product, product.items[0].price),
                       toast({
                         title: "Success!",
-                        description: `Product added to cart ${(<SquareCheck />)}`,
+                        description: "Product added to cart",
                         action: (
                           <SquareCheck className="text-center text-green-500" />
                         ),

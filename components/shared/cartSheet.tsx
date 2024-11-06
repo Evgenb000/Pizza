@@ -1,9 +1,7 @@
 "use client";
 
-import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
   SheetFooter,
@@ -15,19 +13,8 @@ import { ShoppingCart } from "lucide-react";
 import { useIsScrolled } from "@/hooks/use-scroll-y";
 import { cn } from "@/lib/utils";
 import { useCartItemsStore } from "@/store/cartItems";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "../ui/alert-dialog";
 import { CartSheetItems } from "./cartSheetItems";
-import Link from "next/link";
+import { CartActions } from "./cartSheetAction";
 
 interface CartSheetProps {
   side?: "right" | "top" | "bottom" | "left";
@@ -74,57 +61,7 @@ export function CartSheet({ side = "right", iconSize }: CartSheetProps) {
         <CartSheetItems />
 
         <SheetFooter className="mt-auto">
-          <>
-            {productItems.length ? (
-              <>
-                <Link href={"/checkout"} className="w-full h-full">
-                  <Button type="submit" className="w-full">
-                    Order - $ {totalPrice}
-                  </Button>
-                </Link>
-                <AlertDialog>
-                  <AlertDialogTrigger
-                    className={cn(
-                      buttonVariants({ variant: "default" }),
-                      "w-full"
-                    )}
-                  >
-                    Clear
-                  </AlertDialogTrigger>
-                  <AlertDialogContent className="w-68">
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Are you absolutely sure?
-                      </AlertDialogTitle>
-                      <AlertDialogDescription>
-                        You will clear your cart.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel className="bg-ring">
-                        Cancel
-                      </AlertDialogCancel>
-                      <SheetClose asChild>
-                        <AlertDialogAction
-                          onClick={() => {
-                            useCartItemsStore.setState({
-                              productItems: [],
-                              priceItems: [],
-                              ingredientItems: [],
-                              typeItems: [],
-                              sizeItems: [],
-                            });
-                          }}
-                        >
-                          Continue
-                        </AlertDialogAction>
-                      </SheetClose>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </>
-            ) : null}
-          </>
+          <CartActions totalPrice={totalPrice} productItems={productItems} />
         </SheetFooter>
       </SheetContent>
     </Sheet>

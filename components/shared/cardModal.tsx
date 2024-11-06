@@ -11,15 +11,11 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Button } from "../ui/button";
-import { useClickAway } from "react-use";
 import Image from "next/image";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { useCartItemsStore } from "@/store/cartItems";
-import { useLockScroll } from "@/hooks/use-lock-scroll";
-import { useIngredientStore } from "@/store/ingredients";
 import { Toaster } from "../ui/toaster";
-import { useToast } from "@/hooks/use-toast";
 import { SquareCheck } from "lucide-react";
+import { CardModalTabs } from "./cardModalTabs";
+import { useCardModal } from "@/hooks/use-card-modal";
 
 interface Props {
   className?: string;
@@ -34,42 +30,21 @@ export const CardModal: React.FC<Props> = ({
   isOpen,
   setIsModalOpen,
 }) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
-  const { unlockScroll } = useLockScroll();
-  const handleClose = () => {
-    setIsModalOpen(false);
-    setChosenIngredients([]);
-    unlockScroll();
-  };
-  const [totalPrice, setTotalPrice] = React.useState<number | null>(null);
-  const [chosenIngredients, setChosenIngredients] = React.useState<string[]>(
-    []
-  );
-  const [chosenSize, setChosenSize] = React.useState<string>("20");
-  const [chosenType, setChosenType] = React.useState<string>("Traditional");
-  const { addCartItem } = useCartItemsStore();
-  const { ingredients, loading, fetchIngredients } = useIngredientStore();
-  const { toast } = useToast();
-  React.useEffect(() => {
-    if (!loading) return;
-    fetchIngredients();
-  }, [loading, fetchIngredients]);
-
-  useClickAway(ref, handleClose);
-
-  const handleChooseIngredient = (ingredient: string) => {
-    if (chosenIngredients.includes(ingredient)) {
-      setChosenIngredients(chosenIngredients.filter((i) => i !== ingredient));
-    } else {
-      setChosenIngredients([...chosenIngredients, ingredient]);
-    }
-  };
-
-  React.useEffect(() => {
-    if (product) {
-      setTotalPrice(product.items[0].price);
-    }
-  }, [product]);
+  const {
+    ref,
+    totalPrice,
+    chosenIngredients,
+    chosenSize,
+    chosenType,
+    ingredients,
+    toast,
+    handleChooseIngredient,
+    setChosenIngredients,
+    setTotalPrice,
+    setChosenSize,
+    setChosenType,
+    addCartItem,
+  } = useCardModal({ product, setIsModalOpen });
 
   return (
     <div className={cn("", className)}>
@@ -105,66 +80,19 @@ export const CardModal: React.FC<Props> = ({
                       .map((ingredient) => ingredient.name)
                       .join(", ")}
                   </CardDescription>
-                  <Tabs
+
+                  <CardModalTabs
                     defaultValue={
                       product?.items[0].size
                         ? String(product.items[0].size)
                         : "20"
                     }
-                    className="mt-4"
-                  >
-                    <TabsList className="w-full border shadow-md">
-                      {product?.items.map((item) => (
-                        <TabsTrigger
-                          key={item.id}
-                          value={item.size ? String(item.size) : "20"}
-                          className="text-[12px]/[14px] md:block lg:block hidden w-full h-full"
-                          onClick={() => {
-                            setTotalPrice(item.price);
-                            setChosenSize(String(item.size));
-                          }}
-                        >
-                          {item.size}
-                        </TabsTrigger>
-                      ))}
-                    </TabsList>
+                    product={product}
+                    setTotalPrice={setTotalPrice}
+                    setChosenSize={setChosenSize}
+                    setChosenType={setChosenType}
+                  />
 
-                    {["20", "30", "40"].map((size) => (
-                      <TabsContent key={size} value={size}>
-                        <Tabs defaultValue="Traditional">
-                          <TabsList className="w-full border shadow-md">
-                            {["Traditional", "Thin-Crust"].map((type) => (
-                              <TabsTrigger
-                                key={type}
-                                value={type}
-                                className="w-full h-full"
-                                disabled={
-                                  product?.items.find(
-                                    (item) => item.size === Number(size)
-                                  )?.pizzaType
-                                    ? product?.items.find(
-                                        (item) => item.size === Number(size)
-                                      )?.pizzaType === 1 &&
-                                      type === "Thin-Crust"
-                                    : false
-                                }
-                                onClick={() => {
-                                  setTotalPrice(
-                                    product?.items.find(
-                                      (item) => item.size === Number(size)
-                                    )?.price || 0
-                                  );
-                                  setChosenType(type);
-                                }}
-                              >
-                                {type}
-                              </TabsTrigger>
-                            ))}
-                          </TabsList>
-                        </Tabs>
-                      </TabsContent>
-                    ))}
-                  </Tabs>
                   <div className="mt-2 text-sm">For $1:</div>
                   <div className="grid grid-cols-4 justify-center items-center content-center gap-2">
                     {ingredients.map((ingredient) => (
