@@ -27,6 +27,7 @@ export const Header: React.FC<Props> = ({ className, checkout }) => {
         <Link href="/">
           <div className="flex items-center gap-2">
             <Logo />
+            
             <div className={cn(isMobile ? "w-16" : '"w-40"')}>
               <h1 className={cn("font-bold", isMobile ? " text-sm" : "")}>
                 Pizza
