@@ -31,7 +31,7 @@ export const LabeledInput: React.FC<LabeledInputProps> = ({
   const errorText = errors[name]?.message as string;
 
   return (
-    <label className="flex flex-col relative" {...register(name)}>
+    <label className="flex flex-col relative">
       <span className="text-sm w-fit font-medium text-muted-foreground relative">
         {label}
         {required && (

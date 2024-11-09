@@ -36,10 +36,10 @@ export const CardItem: React.FC<Props> = ({
   const { lockScroll } = useLockScroll();
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
   const intersectionRef = React.useRef(null);
-  const isIntersecting = useIntersection(intersectionRef, { threshold: 1 });
+  const isIntersecting = useIntersection(intersectionRef, { threshold: 0.5 });
 
   React.useEffect(() => {
-    if (isIntersecting) {
+    if (isIntersecting?.isIntersecting) {
       setActiveCategoryId(Number(categoryId));
     }
   }, [isIntersecting, setActiveCategoryId, categoryId]);

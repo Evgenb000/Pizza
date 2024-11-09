@@ -54,9 +54,9 @@ export const Header: React.FC<Props> = ({ className, checkout }) => {
               <UserCheck size={iconSize} aria-label="User logged in" />
             </div>
           ) : (
-            <div className="interactive header-icon">
+            <Link href="/authentication" className="interactive header-icon">
               <User size={iconSize} aria-label="User not logged in" />
-            </div>
+            </Link>
           )}
 
           {!checkout && <Separator orientation="vertical" />}
