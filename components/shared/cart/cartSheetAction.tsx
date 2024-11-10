@@ -17,6 +17,8 @@ import { useCartItemsStore } from "@/store/cartItems";
 import { cn } from "@/lib/utils";
 import { SheetClose } from "../../ui/sheet";
 import { ProductsWithIngredients } from "@/types/productsWithIngredients";
+import { useCartStore } from "@/store/cart";
+import React from "react";
 
 interface CartActionsProps {
   totalPrice: number;
@@ -24,6 +26,12 @@ interface CartActionsProps {
 }
 
 export function CartActions({ totalPrice, productItems }: CartActionsProps) {
+  const { totalAmount, fetchCartItems, items } = useCartStore();
+
+  React.useEffect(() => {
+    fetchCartItems();
+  }, [fetchCartItems]);
+
   return (
     <>
       {productItems.length ? (
