@@ -1,6 +1,5 @@
 "use client";
 
-import { ChechoutBlock } from "@/components/shared/checkout/chechoutBlock";
 import { CheckoutCart } from "@/components/shared/checkout/checkoutCart";
 import { ChechoutLocation } from "@/components/shared/checkout/checkoutLocation";
 import { CheckoutPayment } from "@/components/shared/checkout/checkoutPayment";
@@ -12,6 +11,7 @@ import {
   TCheckoutFormSchema,
 } from "@/shared/constants/checoutFormSchema";
 import { FormProvider, useForm } from "react-hook-form";
+import { ContentBlock } from "@/components/shared/common/contentBlock";
 
 export default function CheckoutPage() {
   const form = useForm<TCheckoutFormSchema>({
@@ -40,22 +40,22 @@ export default function CheckoutPage() {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex gap-12">
             <main className="w-full">
-              <ChechoutBlock className="mt-12">
+              <ContentBlock className="mt-12">
                 <CheckoutCart />
-              </ChechoutBlock>
+              </ContentBlock>
 
-              <ChechoutBlock className="mt-12">
+              <ContentBlock className="mt-12">
                 <ChechoutUserInfo />
-              </ChechoutBlock>
+              </ContentBlock>
 
-              <ChechoutBlock className="mt-12">
+              <ContentBlock className="mt-12">
                 <ChechoutLocation />
-              </ChechoutBlock>
+              </ContentBlock>
             </main>
 
-            <ChechoutBlock className="mt-12 w-fit h-fit sticky top-6">
+            <ContentBlock className="mt-12 w-fit h-fit sticky top-6">
               <CheckoutPayment />
-            </ChechoutBlock>
+            </ContentBlock>
           </div>
         </form>
       </FormProvider>
