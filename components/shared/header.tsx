@@ -2,12 +2,12 @@
 
 import { cn } from "@/lib/utils";
 import React from "react";
-import { Container } from "./container";
+import { Container } from "./common/container";
 import { Logo } from "./logo";
 import { Phone, User, UserCheck } from "lucide-react";
 import Link from "next/link";
 import { Separator } from "../ui/separator";
-import { CartSheet } from "./cartSheet";
+import { CartSheet } from "./cart/cartSheet";
 import { Searchbar } from "./searchbar";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -27,7 +27,7 @@ export const Header: React.FC<Props> = ({ className, checkout }) => {
         <Link href="/">
           <div className="flex items-center gap-2">
             <Logo />
-            
+
             <div className={cn(isMobile ? "w-16" : '"w-40"')}>
               <h1 className={cn("font-bold", isMobile ? " text-sm" : "")}>
                 Pizza

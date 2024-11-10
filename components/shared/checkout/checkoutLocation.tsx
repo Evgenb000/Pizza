@@ -2,10 +2,10 @@
 
 import { cn } from "@/lib/utils";
 import React from "react";
-import { Separator } from "../ui/separator";
-import { Textarea } from "../ui/textarea";
-import { LabeledInput } from "./labeledInput";
+import { Separator } from "../../ui/separator";
+import { Textarea } from "../../ui/textarea";
 import { useFormContext } from "react-hook-form";
+import { LabeledInput } from "../common/labeledInput";
 
 interface Props {
   className?: string;

@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 import { useProducts } from "@/hooks/use-products";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../../ui/skeleton";
 import { CardItem } from "./cardItem";
 import { useGroupByCategory } from "@/hooks/use-group-by-caterogy";
 import { CategoryWithProducts } from "@/types/categoryWithProducts";

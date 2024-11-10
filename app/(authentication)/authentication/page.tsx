@@ -1,7 +1,7 @@
 "use client";
 
-import { AuthLog } from "@/components/shared/authLog";
-import { AuthReg } from "@/components/shared/authReg";
+import { AuthLog } from "@/components/shared/authComponent/authLog";
+import { AuthReg } from "@/components/shared/authComponent/authReg";
 import { buttonVariants } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";

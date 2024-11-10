@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import React from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { ProductsWithIngredients } from "@/types/productsWithIngredients";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type Price = number | null;
 type Size = string;

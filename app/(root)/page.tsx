@@ -1,5 +1,5 @@
-import { Container } from "@/components/shared/container";
-import { Cards } from "@/components/shared/cards";
+import { Container } from "@/components/shared/common/container";
+import { Cards } from "@/components/shared/card/cards";
 import { Sidebar } from "@/components/shared/sidebar";
 import { NavCategories } from "@/components/shared/navCategories";
 import { findPizzas, GetSearchParams } from "@/services/findPizzas";

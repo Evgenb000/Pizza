@@ -2,9 +2,9 @@
 
 import { cn } from "@/lib/utils";
 import React from "react";
-import { Separator } from "../ui/separator";
+import { Separator } from "../../ui/separator";
 import { useCartItemsStore } from "@/store/cartItems";
-import { CartSheetItems } from "./cartSheetItems";
+import { CartSheetItems } from "../cart/cartSheetItems";
 
 interface Props {
   className?: string;

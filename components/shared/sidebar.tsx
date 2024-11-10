@@ -5,7 +5,7 @@ import React from "react";
 import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import { SidebarFilter } from "./sidebarFilter";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Container } from "./container";
+import { Container } from "./common/container";
 import { useIsScrolled } from "@/hooks/use-scroll-y";
 
 interface Props {

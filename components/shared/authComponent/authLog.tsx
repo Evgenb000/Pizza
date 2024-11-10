@@ -2,9 +2,9 @@
 
 import { cn } from "@/lib/utils";
 import React from "react";
-import { LabeledInput } from "./labeledInput";
 import { useFormContext } from "react-hook-form";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
+import { LabeledInput } from "../common/labeledInput";
 
 interface Props {
   className?: string;
@@ -29,7 +29,7 @@ export const AuthLog: React.FC<Props> = ({ className }) => {
           />
         );
       })}
-      
+
       <Button type="submit" className="mt-4">
         Log in
       </Button>

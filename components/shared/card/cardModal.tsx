@@ -2,20 +2,20 @@ import { cn } from "@/lib/utils";
 import { ProductsWithIngredients } from "@/types/productsWithIngredients";
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import { Button } from "../ui/button";
 import Image from "next/image";
-import { Toaster } from "../ui/toaster";
 import { SquareCheck } from "lucide-react";
 import { CardModalTabs } from "./cardModalTabs";
 import { useCardModal } from "@/hooks/use-card-modal";
+import { Toaster } from "@/components/ui/toaster";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+  CardFooter,
+} from "@/components/ui/card";
 
 interface Props {
   className?: string;

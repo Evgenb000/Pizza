@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import { useCartItemsStore } from "@/store/cartItems";
 import { cn } from "@/lib/utils";
-import { SheetClose } from "../ui/sheet";
+import { SheetClose } from "../../ui/sheet";
 import { ProductsWithIngredients } from "@/types/productsWithIngredients";
 
 interface CartActionsProps {

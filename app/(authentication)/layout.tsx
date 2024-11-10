@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="h-screen w-screen flex justify-center items-center">
+    <main className="h-screen w-screen flex justify-center pt-20 box-border">
       {children}
     </main>
   );

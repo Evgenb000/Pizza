@@ -3,8 +3,8 @@
 import { cn } from "@/lib/utils";
 import { useCartItemsStore } from "@/store/cartItems";
 import React from "react";
-import { Button } from "../ui/button";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
+import { Button } from "../../ui/button";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "../../ui/input-otp";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 
 interface Props {

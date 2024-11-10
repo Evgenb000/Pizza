@@ -1,7 +1,7 @@
 import { useCartItemsStore } from "@/store/cartItems";
 import { X } from "lucide-react";
 import React from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import Image from "next/image";
 
 export const CartSheetItems = () => {
@@ -12,10 +12,7 @@ export const CartSheetItems = () => {
   return productItems.length ? (
     <div className="divide-y divide-gray-200 flex-1 overflow-y-auto pr-2">
       {productItems.map((item, index) => (
-        <div
-          key={index}
-          className="flex items-center gap-4 py-4"
-        >
+        <div key={index} className="flex items-center gap-4 py-4">
           <Image
             src={item.imageUrl}
             alt={item.name}

@@ -1,11 +1,11 @@
 "use client";
 
-import { ChechoutBlock } from "@/components/shared/chechoutBlock";
-import { CheckoutCart } from "@/components/shared/checkoutCart";
-import { ChechoutLocation } from "@/components/shared/checkoutLocation";
-import { CheckoutPayment } from "@/components/shared/checkoutPayment";
-import { ChechoutUserInfo } from "@/components/shared/checkoutUserInfo";
-import { Container } from "@/components/shared/container";
+import { ChechoutBlock } from "@/components/shared/checkout/chechoutBlock";
+import { CheckoutCart } from "@/components/shared/checkout/checkoutCart";
+import { ChechoutLocation } from "@/components/shared/checkout/checkoutLocation";
+import { CheckoutPayment } from "@/components/shared/checkout/checkoutPayment";
+import { ChechoutUserInfo } from "@/components/shared/checkout/checkoutUserInfo";
+import { Container } from "@/components/shared/common/container";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   checkoutFormSchema,

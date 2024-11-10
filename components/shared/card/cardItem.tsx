@@ -1,25 +1,25 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
 import Image from "next/image";
 import { useIntersection } from "react-use";
 import { useCategoryStore } from "@/store/category";
 import { CategoryWithProducts } from "@/types/categoryWithProducts";
-import { Button } from "../ui/button";
 import { ProductsWithIngredients } from "@/types/productsWithIngredients";
 import { AnimatePresence, motion } from "framer-motion";
 import { CardModal } from "./cardModal";
 import { useCartItemsStore } from "@/store/cartItems";
 import { useLockScroll } from "@/hooks/use-lock-scroll";
 import { useToast } from "@/hooks/use-toast";
-import { Toaster } from "../ui/toaster";
 import { SquareCheck } from "lucide-react";
+import { Toaster } from "@/components/ui/toaster";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 
 interface Props {
   className?: string;

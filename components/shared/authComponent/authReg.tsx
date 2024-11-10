@@ -2,9 +2,9 @@
 
 import { cn } from "@/lib/utils";
 import React from "react";
-import { LabeledInput } from "./labeledInput";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { useFormContext } from "react-hook-form";
+import { LabeledInput } from "../common/labeledInput";
 
 interface Props {
   className?: string;
