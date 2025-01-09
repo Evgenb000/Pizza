@@ -48,3 +48,5 @@ export type TAuthenticationFormSchemaLogin = z.infer<
 export type TAuthenticationFormSchemaRegister = z.infer<
   typeof authenticationFormSchemaRegister
 >;
+
+export type CheckoutFormValues = z.infer<typeof checkoutFormSchema>;

@@ -8,10 +8,13 @@ import { Container } from "@/components/shared/common/container";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   checkoutFormSchema,
+  CheckoutFormValues,
   TCheckoutFormSchema,
 } from "@/shared/constants/checoutFormSchema";
 import { FormProvider, useForm } from "react-hook-form";
 import { ContentBlock } from "@/components/shared/common/contentBlock";
+import React from "react";
+import { createOrder } from "@/app/action";
 
 export default function CheckoutPage() {
   const form = useForm<TCheckoutFormSchema>({
@@ -26,11 +29,15 @@ export default function CheckoutPage() {
     },
   });
 
-  const onSubmit = async (data: TCheckoutFormSchema) => {
+  const onSubmit = async (data: CheckoutFormValues) => {
     try {
-      console.log("TODO: Implement payment processing", data);
-    } catch (error) {
-      console.error("Error submitting form", error);
+      const url = await createOrder(data);
+
+      if (url) {
+        location.href = url;
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

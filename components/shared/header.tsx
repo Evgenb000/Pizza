@@ -41,6 +41,7 @@ export const Header: React.FC<Props> = ({ className, checkout }) => {
         </Link>
 
         {!checkout && <Searchbar />}
+        
         <div
           className={cn("flex items-center h-6 top-1", isMobile ? "" : "gap-2")}
         >
