@@ -26,7 +26,7 @@ interface CartActionsProps {
 }
 
 export function CartActions({ totalPrice, productItems }: CartActionsProps) {
-  const { totalAmount, fetchCartItems, items } = useCartStore();
+  const { fetchCartItems } = useCartStore();
 
   React.useEffect(() => {
     fetchCartItems();

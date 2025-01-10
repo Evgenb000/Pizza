@@ -18,7 +18,7 @@ export const useCardModal = ({
   const ref = React.useRef<HTMLDivElement | null>(null);
   const { unlockScroll } = useLockScroll();
   const [totalPrice, setTotalPrice] = React.useState<number | null>(null);
-  const [chosenIngredients, setChosenIngredients] = React.useState<string[]>(
+  const [chosenIngredients, setChosenIngredients] = React.useState<number[]>(
     []
   );
   const [chosenSize, setChosenSize] = React.useState<string>("20");
@@ -40,7 +40,7 @@ export const useCardModal = ({
 
   useClickAway(ref, handleClose);
 
-  const handleChooseIngredient = (ingredient: string) => {
+  const handleChooseIngredient = (ingredient: number) => {
     setChosenIngredients((prev) =>
       prev.includes(ingredient)
         ? prev.filter((i) => i !== ingredient)

@@ -16,6 +16,7 @@ import {
   CardDescription,
   CardFooter,
 } from "@/components/ui/card";
+import { useCartStore } from "@/store/cart";
 
 interface Props {
   className?: string;
@@ -34,17 +35,17 @@ export const CardModal: React.FC<Props> = ({
     ref,
     totalPrice,
     chosenIngredients,
+    ingredients,
     chosenSize,
     chosenType,
-    ingredients,
     toast,
     handleChooseIngredient,
     setChosenIngredients,
     setTotalPrice,
     setChosenSize,
     setChosenType,
-    addCartItem,
   } = useCardModal({ product, setIsModalOpen });
+  const addCartItem = useCartStore((state) => state.addCartItem);
 
   return (
     <div className={cn("", className)}>
@@ -100,11 +101,11 @@ export const CardModal: React.FC<Props> = ({
                         key={ingredient.name}
                         className={cn(
                           "p-1 border rounded-md shadow-md",
-                          chosenIngredients.includes(ingredient.name)
+                          chosenIngredients.includes(ingredient.id)
                             ? "bg-gray-200"
                             : ""
                         )}
-                        onClick={() => handleChooseIngredient(ingredient.name)}
+                        onClick={() => handleChooseIngredient(ingredient.id)}
                       >
                         <Image
                           src={ingredient.imageUrl}
@@ -123,13 +124,12 @@ export const CardModal: React.FC<Props> = ({
                   className="w-full"
                   onClick={() => {
                     if (product && totalPrice) {
-                      addCartItem(
-                        product,
-                        totalPrice,
-                        chosenIngredients,
-                        chosenSize,
-                        chosenType
-                      );
+                      addCartItem({
+                        productItemId: product.items[0].id,
+                        ingredients: chosenIngredients,
+                        pizzaType: chosenType === "Traditional" ? 0 : 1,
+                        pizzaSize: Number(chosenSize),
+                      });
                     }
                     setChosenIngredients([]);
                     toast({

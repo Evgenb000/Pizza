@@ -6,7 +6,6 @@ import { CategoryWithProducts } from "@/types/categoryWithProducts";
 import { ProductsWithIngredients } from "@/types/productsWithIngredients";
 import { AnimatePresence, motion } from "framer-motion";
 import { CardModal } from "./cardModal";
-import { useCartItemsStore } from "@/store/cartItems";
 import { useLockScroll } from "@/hooks/use-lock-scroll";
 import { useToast } from "@/hooks/use-toast";
 import { SquareCheck } from "lucide-react";
@@ -20,6 +19,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
+import { useCartStore } from "@/store/cart";
 
 interface Props {
   className?: string;
@@ -37,6 +37,7 @@ export const CardItem: React.FC<Props> = ({
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
   const intersectionRef = React.useRef(null);
   const isIntersecting = useIntersection(intersectionRef, { threshold: 0.5 });
+  const addCartItem = useCartStore((state) => state.addCartItem);
 
   React.useEffect(() => {
     if (isIntersecting?.isIntersecting) {
@@ -54,8 +55,6 @@ export const CardItem: React.FC<Props> = ({
     lockScroll();
   };
   const { toast } = useToast();
-
-  const { addCartItem } = useCartItemsStore();
 
   return (
     <div ref={intersectionRef} key={categoryName} id={categoryName}>
@@ -127,7 +126,7 @@ export const CardItem: React.FC<Props> = ({
                 {product.items.length === 1 ? (
                   <Button
                     onClick={() => (
-                      addCartItem(product, product.items[0].price),
+                      addCartItem({ productItemId: product.items[0].id }),
                       toast({
                         title: "Success!",
                         description: "Product added to cart",
