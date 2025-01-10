@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NextTopLoader from "nextjs-toploader";
+import { Providers } from "@/components/shared/providers";
 
 export const metadata: Metadata = {
   title: "Pizza",
@@ -15,8 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body>
-        {children}
-        <NextTopLoader />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
