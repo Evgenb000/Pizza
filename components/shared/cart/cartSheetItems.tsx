@@ -1,17 +1,19 @@
-import { useCartItemsStore } from "@/store/cartItems";
 import { X } from "lucide-react";
 import React from "react";
 import { Button } from "../../ui/button";
 import Image from "next/image";
+import { useCartStore } from "@/store/cart";
+import { mapPizzaType } from "@/shared/constants/pizza";
 
 export const CartSheetItems = () => {
-  const { productItems, priceItems, ingredientItems, typeItems, sizeItems } =
-    useCartItemsStore();
-  const removeCartItem = useCartItemsStore((state) => state.removeCartItem);
+  const { items, loading } = useCartStore();
+  const removeCartItem = useCartStore((state) => state.removeCartItem);
 
-  return productItems.length ? (
+  console.log(items);
+
+  return items.length ? (
     <div className="divide-y divide-gray-200 flex-1 overflow-y-auto pr-2">
-      {productItems.map((item, index) => (
+      {items.map((item, index) => (
         <div key={index} className="flex items-center gap-4 py-4">
           <Image
             src={item.imageUrl}
@@ -21,23 +23,22 @@ export const CartSheetItems = () => {
             className="rounded-lg"
           />
           <span className="text-[10px] text-gray-500">
-            {typeItems[index] && typeItems[index] + "cm."}
+            {item.pizzaType && mapPizzaType[item.pizzaType as 1 | 2]}
+
             <br />
-            {sizeItems[index] && sizeItems[index]}
+
+            {item.pizzaSize && items[index].pizzaSize + " cm."}
           </span>
           <div className="flex-1">
             <div className="font-semibold text-base">{item.name}</div>
             <div className="text-[10px] text-gray-500 max-h-12 overflow-hidden">
-              {ingredientItems[index]?.length > 0
-                ? ingredientItems[index].join(", ")
-                : ""}
+              {item.ingredients?.length > 0 ? item.ingredients.join(", ") : ""}
             </div>
           </div>
           <div className="font-semibold text-lg text-gray-800">
-            ${priceItems[index] + (ingredientItems[index]?.length || 0)}
+            x{item.quantity} = ${item.price + item.ingredients?.length * 1}
           </div>
-
-          <Button size={"icon"} onClick={() => removeCartItem(index)}>
+          <Button size={"icon"} onClick={() => removeCartItem(item.id)}>
             <X />
           </Button>
         </div>
